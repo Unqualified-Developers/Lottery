@@ -13,6 +13,14 @@ namespace Lottery
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainWindow()
+        {
+            InitializeComponent();
+            genb.MouseEnter += (s, e) => { ScaleAnimationShow(genb, 1, 1.1, new TimeSpan(0, 0, 0, 0, 250)); };
+            genb.MouseLeave += (s, e) => { ScaleAnimationShow(genb, 1.1, 1, new TimeSpan(0, 0, 0, 0, 250)); };
+            c.MouseEnter += (s, e) => { ScaleAnimationShow(c, 1, 1.05, new TimeSpan(0, 0, 0, 0, 250)); };
+            c.MouseLeave += (s, e) => { ScaleAnimationShow(c, 1.05, 1, new TimeSpan(0, 0, 0, 0, 250)); };
+        }
         public static int Generate(int min, int max, HashSet<int> iset, Random r)
         {
             int i = 0;
@@ -100,10 +108,5 @@ namespace Lottery
             scale.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
-
-        genb.MouseEnter += (s, e) => { ScaleAnimationShow(genb, 1, 1.1, new TimeSpan(0, 0, 0, 0, 250)); }
-        genb.MouseLeave += (s, e) => { ScaleAnimationShow(genb, 1.1, 1, new TimeSpan(0, 0, 0, 0, 250)); }
-        c.MouseEnter += (s, e) => { ScaleAnimationShow(c, 1, 1.05, new TimeSpan(0, 0, 0, 0, 250)); }
-        c.MouseLeave += (s, e) => { ScaleAnimationShow(c, 1.05, 1, new TimeSpan(0, 0, 0, 0, 250)); }
     }
 }
