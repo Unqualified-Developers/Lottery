@@ -78,7 +78,7 @@ namespace Lottery
             catch (InvalidOperationException) { MessageBox.Show("Why did 'Minimum' > 'Maximum'?", "Check", 0, MessageBoxImage.Warning); }
         }
 
-        public void ScaleEasingAnimationShow(UIElement element, double Sizefrom, double Sizeto, TimeSpan time, double RenderX = 0.5, double RenderY = 0.5, int power = 5)
+        public void ScaleAnimationShow(UIElement element, double Sizefrom, double Sizeto, TimeSpan time, double RenderX = 0.5, double RenderY = 0.5, int power = 5)
         {
             ScaleTransform scale = new ScaleTransform();
             element.RenderTransform = scale; //定义圆心位置
@@ -101,9 +101,9 @@ namespace Lottery
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        private void genb_MouseEnter(object sender, MouseEventArgs e) { ScaleEasingAnimationShow(genb, 1, 1.1, new TimeSpan(0, 0, 0, 0, 250)); }
-        private void genb_MouseLeave(object sender, MouseEventArgs e) { ScaleEasingAnimationShow(genb, 1.1, 1, new TimeSpan(0, 0, 0, 0, 250)); }
-        private void c_MouseEnter(object sender, MouseEventArgs e) { ScaleEasingAnimationShow(c, 1, 1.05, new TimeSpan(0, 0, 0, 0, 250)); }
-        private void c_MouseLeave(object sender, MouseEventArgs e) { ScaleEasingAnimationShow(c, 1.05, 1, new TimeSpan(0, 0, 0, 0, 250)); }
+        genb.MouseEnter += (s, e) => { ScaleAnimationShow(genb, 1, 1.1, new TimeSpan(0, 0, 0, 0, 250)); }
+        genb.MouseLeave += (s, e) => { ScaleAnimationShow(genb, 1.1, 1, new TimeSpan(0, 0, 0, 0, 250)); }
+        c.MouseEnter += (s, e) => { ScaleAnimationShow(c, 1, 1.05, new TimeSpan(0, 0, 0, 0, 250)); }
+        c.MouseLeave += (s, e) => { ScaleAnimationShow(c, 1.05, 1, new TimeSpan(0, 0, 0, 0, 250)); }
     }
 }
