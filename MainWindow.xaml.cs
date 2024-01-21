@@ -82,7 +82,7 @@ namespace Lottery
         {
             ScaleTransform scale = new ScaleTransform();
             element.RenderTransform = scale; //定义圆心位置
-            element.RenderTransformOrigin = new Point(RenderX, RenderY); //定义过渡动画,power为过度的强度
+            element.RenderTransformOrigin = new Point(RenderX, RenderY); //定义过渡动画, power为过渡的强度
             EasingFunctionBase easeFunction = new PowerEase()
             {
                 EasingMode = EasingMode.EaseInOut,
@@ -91,11 +91,11 @@ namespace Lottery
 
             DoubleAnimation scaleAnimation = new DoubleAnimation()
             {
-                From = Sizefrom,                                   //起始值
-                To = Sizeto,                                     //结束值
+                From = Sizefrom, //起始值
+                To = Sizeto, //结束值
                 FillBehavior = FillBehavior.HoldEnd,
-                Duration = time,                                 //动画播放时间
-                EasingFunction = easeFunction,                 //缓动函数
+                Duration = time, //动画播放时间
+                EasingFunction = easeFunction, //缓动函数
             };
             scale.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
