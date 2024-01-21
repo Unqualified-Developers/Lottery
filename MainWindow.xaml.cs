@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media;
 
@@ -13,11 +13,6 @@ namespace Lottery
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
         public static int Generate(int min, int max, HashSet<int> iset, Random r)
         {
             int i = 0;
@@ -83,7 +78,7 @@ namespace Lottery
             catch (InvalidOperationException) { MessageBox.Show("Why did 'Minimum' > 'Maximum'?", "Check", 0, MessageBoxImage.Warning); }
         }
 
-        public void ScaleEasingAnimationShow(UIElement element, double RenderX, double RenderY, double Sizefrom, double Sizeto, int power, TimeSpan time)
+        public void ScaleEasingAnimationShow(UIElement element, double Sizefrom, double Sizeto, TimeSpan time, double RenderX = 0.5, double RenderY = 0.5, int power = 5)
         {
             ScaleTransform scale = new ScaleTransform();
             element.RenderTransform = scale; //定义圆心位置
@@ -106,9 +101,9 @@ namespace Lottery
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
-        private void genb_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) { ScaleEasingAnimationShow(genb, 0.5, 0.5, 1, 1.1, 5, new TimeSpan(0, 0, 0, 0, 250)); }
-        private void genb_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) { ScaleEasingAnimationShow(genb, 0.5, 0.5, 1.1, 1, 5, new TimeSpan(0, 0, 0, 0, 250)); }
-        private void c_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) { ScaleEasingAnimationShow(c, 0.5, 0.5, 1, 1.05, 5, new TimeSpan(0, 0, 0, 0, 250)); }
-        private void c_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) { ScaleEasingAnimationShow(c, 0.5, 0.5, 1.05, 1, 5, new TimeSpan(0, 0, 0, 0, 250)); }
+        private void genb_MouseEnter(object sender, MouseEventArgs e) { ScaleEasingAnimationShow(genb, 1, 1.1, new TimeSpan(0, 0, 0, 0, 250)); }
+        private void genb_MouseLeave(object sender, MouseEventArgs e) { ScaleEasingAnimationShow(genb, 1.1, 1, new TimeSpan(0, 0, 0, 0, 250)); }
+        private void c_MouseEnter(object sender, MouseEventArgs e) { ScaleEasingAnimationShow(c, 1, 1.05, new TimeSpan(0, 0, 0, 0, 250)); }
+        private void c_MouseLeave(object sender, MouseEventArgs e) { ScaleEasingAnimationShow(c, 1.05, 1, new TimeSpan(0, 0, 0, 0, 250)); }
     }
 }
