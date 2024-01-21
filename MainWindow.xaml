@@ -31,8 +31,8 @@
             <TextBox Name="quat" Grid.Row="3" Grid.Column="1" FontSize="17" Height="24"></TextBox>
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Row="1">
-            <CheckBox Name="c" Content="No Duplication" Height="30" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="c_MouseEnter" MouseLeave="c_MouseLeave"></CheckBox>
-            <Button Content="Generate" Click="Gen" Height="30" Name="genb" MouseEnter="genb_MouseEnter" MouseLeave="genb_MouseLeave"></Button>
+            <CheckBox Name="c" Content="No Duplication" Height="30" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></CheckBox>
+            <Button Content="Generate" Click="Gen" Height="30" Name="genb"></Button>
         </StackPanel>
     </Grid>
 </Window>
