@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using System.Windows.Media;
 
 namespace Lottery
 {
@@ -49,7 +52,7 @@ namespace Lottery
                 if (!int.TryParse(quat.Text, out int quai)) quai = 1;
                 else quai = int.Parse(quat.Text);
                 int r = Generate(mini, maxi, iset, random);
-                if (quai < 1 || quai > 999) MessageBox.Show("The value of 'Quality' you entered is not in the valid range.\nValid range: 1~999.", "Range", 0, MessageBoxImage.Warning);
+                if (quai < 1 || quai > 3200) MessageBox.Show("The value of 'Quality' you entered is not in the valid range.\nValid range: 1~3200.", "Range", 0, MessageBoxImage.Warning);
                 else if (quai != 1)
                 {
                     int[] rl = new int[quai];
@@ -79,5 +82,33 @@ namespace Lottery
             catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MessageBox.Show("The value of 'Minimum' or 'Maximum' entered is not in the valid range.\nValid range: -2147483648~2147483646.", "Range", 0, MessageBoxImage.Warning); }
             catch (InvalidOperationException) { MessageBox.Show("Why did 'Minimum' > 'Maximum'?", "Check", 0, MessageBoxImage.Warning); }
         }
+
+        public void ScaleEasingAnimationShow(UIElement element, double RenderX, double RenderY, double Sizefrom, double Sizeto, int power, TimeSpan time)
+        {
+            ScaleTransform scale = new ScaleTransform();
+            element.RenderTransform = scale; //定义圆心位置
+            element.RenderTransformOrigin = new Point(RenderX, RenderY); //定义过渡动画,power为过度的强度
+            EasingFunctionBase easeFunction = new PowerEase()
+            {
+                EasingMode = EasingMode.EaseInOut,
+                Power = power
+            };
+
+            DoubleAnimation scaleAnimation = new DoubleAnimation()
+            {
+                From = Sizefrom,                                   //起始值
+                To = Sizeto,                                     //结束值
+                FillBehavior = FillBehavior.HoldEnd,
+                Duration = time,                                 //动画播放时间
+                EasingFunction = easeFunction,                 //缓动函数
+            };
+            scale.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
+            scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
+        }
+
+        private void genb_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) { ScaleEasingAnimationShow(genb, 0.5, 0.5, 1, 1.1, 5, new TimeSpan(0, 0, 0, 0, 250)); }
+        private void genb_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) { ScaleEasingAnimationShow(genb, 0.5, 0.5, 1.1, 1, 5, new TimeSpan(0, 0, 0, 0, 250)); }
+        private void c_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) { ScaleEasingAnimationShow(c, 0.5, 0.5, 1, 1.05, 5, new TimeSpan(0, 0, 0, 0, 250)); }
+        private void c_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) { ScaleEasingAnimationShow(c, 0.5, 0.5, 1.05, 1, 5, new TimeSpan(0, 0, 0, 0, 250)); }
     }
 }
