@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media;
 
@@ -16,12 +15,16 @@ namespace Lottery
         public MainWindow()
         {
             InitializeComponent();
-            genb.MouseEnter += (s, e) => { ScaleAnimationShow(genb, 1, 1.1, new TimeSpan(0, 0, 0, 0, 250)); };
-            genb.MouseLeave += (s, e) => { ScaleAnimationShow(genb, 1.1, 1, new TimeSpan(0, 0, 0, 0, 250)); };
-            c.MouseEnter += (s, e) => { ScaleAnimationShow(c, 1, 1.05, new TimeSpan(0, 0, 0, 0, 250)); };
-            c.MouseLeave += (s, e) => { ScaleAnimationShow(c, 1.05, 1, new TimeSpan(0, 0, 0, 0, 250)); };
+            genb.MouseEnter += (s, e) => { ScaleAnimationShow(genb, 1, 1.05, TimeSpan.FromMilliseconds(250); };
+            genb.MouseLeave += (s, e) => { ScaleAnimationShow(genb, 1.05, 1, TimeSpan.FromMilliseconds(250); };
+            genb.PreviewMouseDown += (s, e) => { ScaleAnimationShow(genb, 1.05, 0.95, TimeSpan.FromMilliseconds(250); };
+            genb.PreviewMouseUp += (s, e) => { ScaleAnimationShow(genb, 0.95, 1.05, TimeSpan.FromMilliseconds(250); };
+            c.MouseEnter += (s, e) => { ScaleAnimationShow(c, 1, 1.05, TimeSpan.FromMilliseconds(250); };
+            c.MouseLeave += (s, e) => { ScaleAnimationShow(c, 1.05, 1, TimeSpan.FromMilliseconds(250); };
+            c.PreviewMouseDown += (s, e) => { ScaleAnimationShow(c, 1.05, 0.95, TimeSpan.FromMilliseconds(250); };
+            c.PreviewMouseUp += (s, e) => { ScaleAnimationShow(c, 0.95, 1.05, TimeSpan.FromMilliseconds(250); };
         }
-        public static int Generate(int min, int max, HashSet<int> iset, Random r)
+        public int Generate(int min, int max, HashSet<int> iset, Random r)
         {
             int i = 0;
             int re;
