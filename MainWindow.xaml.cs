@@ -15,14 +15,22 @@ namespace Lottery
         public MainWindow()
         {
             InitializeComponent();
-            genb.MouseEnter += (s, e) => { ScaleAnimationShow(genb, 1, 1.05, TimeSpan.FromMilliseconds(250)); };
-            genb.MouseLeave += (s, e) => { ScaleAnimationShow(genb, 1.05, 1, TimeSpan.FromMilliseconds(250)); };
-            genb.PreviewMouseDown += (s, e) => { ScaleAnimationShow(genb, 1.05, 0.95, TimeSpan.FromMilliseconds(250)); };
-            genb.PreviewMouseUp += (s, e) => { ScaleAnimationShow(genb, 0.95, 1.05, TimeSpan.FromMilliseconds(250)); };
-            c.MouseEnter += (s, e) => { ScaleAnimationShow(c, 1, 1.05, TimeSpan.FromMilliseconds(250)); };
-            c.MouseLeave += (s, e) => { ScaleAnimationShow(c, 1.05, 1, TimeSpan.FromMilliseconds(250)); };
-            c.PreviewMouseDown += (s, e) => { ScaleAnimationShow(c, 1.05, 0.95, TimeSpan.FromMilliseconds(250)); };
-            c.PreviewMouseUp += (s, e) => { ScaleAnimationShow(c, 0.95, 1.05, TimeSpan.FromMilliseconds(250)); };
+            genb.MouseEnter += (s, e) => { ScaleAniShow(genb, 1, 1.05); };
+            genb.MouseLeave += (s, e) => { ScaleAniShow(genb, 1.05, 1); };
+            genb.PreviewMouseDown += (s, e) => { ScaleAniShow(genb, 1.05, 0.95); };
+            genb.PreviewMouseUp += (s, e) => { ScaleAniShow(genb, 0.95, 1.05); };
+            c.MouseEnter += (s, e) => { ScaleAniShow(c, 1, 1.05); };
+            c.MouseLeave += (s, e) => { ScaleAniShow(c, 1.05, 1); };
+            c.PreviewMouseDown += (s, e) => { ScaleAniShow(c, 1.05, 0.95); };
+            c.PreviewMouseUp += (s, e) => { ScaleAniShow(c, 0.95, 1.05); };
+            mint.PreviewMouseDown += (s, e) => { ScaleAniShow(mint, 1, 0.95); };
+            mint.PreviewMouseUp += (s, e) => { ScaleAniShow(mint, 0.95, 1); };
+            maxt.PreviewMouseDown += (s, e) => { ScaleAniShow(maxt, 1, 0.95); };
+            maxt.PreviewMouseUp += (s, e) => { ScaleAniShow(maxt, 0.95, 1); };
+            ignt.PreviewMouseDown += (s, e) => { ScaleAniShow(ignt, 1, 0.95); };
+            ignt.PreviewMouseUp += (s, e) => { ScaleAniShow(ignt, 0.95, 1); };
+            quat.PreviewMouseDown += (s, e) => { ScaleAniShow(quat, 1, 0.95); };
+            quat.PreviewMouseUp += (s, e) => { ScaleAniShow(quat, 0.95, 1); };
         }
         public int Generate(int min, int max, HashSet<int> iset, Random r)
         {
@@ -89,8 +97,9 @@ namespace Lottery
             catch (InvalidOperationException) { MessageBox.Show("Why did 'Minimum' > 'Maximum'?", "Check", 0, MessageBoxImage.Warning); }
         }
 
-        public void ScaleAnimationShow(UIElement element, double Sizefrom, double Sizeto, TimeSpan time, double RenderX = 0.5, double RenderY = 0.5, int power = 5)
+        public void ScaleAniShow(UIElement element, double Sizefrom, double Sizeto, double RenderX = 0.5, double RenderY = 0.5, int power = 5)
         {
+            TimeSpan time = TimeSpan.FromMilliseconds(250);
             ScaleTransform scale = new ScaleTransform();
             element.RenderTransform = scale; //定义圆心位置
             element.RenderTransformOrigin = new Point(RenderX, RenderY); //定义过渡动画, power为过渡的强度
