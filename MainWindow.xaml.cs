@@ -101,8 +101,8 @@ namespace Lottery
         {
             TimeSpan time = TimeSpan.FromMilliseconds(250);
             ScaleTransform scale = new ScaleTransform();
-            element.RenderTransform = scale; //定义圆心位置
-            element.RenderTransformOrigin = new Point(RenderX, RenderY); //定义过渡动画, power为过渡的强度
+            element.RenderTransform = scale;  // Define the central position of the circle.
+            element.RenderTransformOrigin = new Point(RenderX, RenderY);  // Define the transition animation, 'power' is the strength of the transition.
             EasingFunctionBase easeFunction = new PowerEase()
             {
                 EasingMode = EasingMode.EaseInOut,
@@ -111,11 +111,11 @@ namespace Lottery
 
             DoubleAnimation scaleAnimation = new DoubleAnimation()
             {
-                From = Sizefrom, //起始值
-                To = Sizeto, //结束值
+                From = Sizefrom,  // Start value
+                To = Sizeto,  // End value
                 FillBehavior = FillBehavior.HoldEnd,
-                Duration = time, //动画播放时间
-                EasingFunction = easeFunction, //缓动函数
+                Duration = time,  // Animation playback time
+                EasingFunction = easeFunction,  // Slow function
             };
             scale.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
