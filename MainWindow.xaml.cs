@@ -115,7 +115,7 @@ namespace Lottery
                 To = Sizeto,  // End value
                 FillBehavior = FillBehavior.HoldEnd,
                 Duration = time,  // Animation playback time
-                EasingFunction = easeFunction,  // Slow function
+                EasingFunction = easeFunction,  // Ease function
             };
             scale.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
