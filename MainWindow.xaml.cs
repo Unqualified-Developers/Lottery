@@ -99,23 +99,20 @@ namespace Lottery
 
         public void ScaleAniShow(UIElement element, double Sizefrom, double Sizeto, double RenderX = 0.5, double RenderY = 0.5, int power = 5)
         {
-            TimeSpan time = TimeSpan.FromMilliseconds(250);
             ScaleTransform scale = new ScaleTransform();
             element.RenderTransform = scale;  // Define the central position of the circle.
             element.RenderTransformOrigin = new Point(RenderX, RenderY);  // Define the transition animation, 'power' is the strength of the transition.
-            EasingFunctionBase easeFunction = new PowerEase()
-            {
-                EasingMode = EasingMode.EaseInOut,
-                Power = power
-            };
-
             DoubleAnimation scaleAnimation = new DoubleAnimation()
             {
                 From = Sizefrom,  // Start value
                 To = Sizeto,  // End value
                 FillBehavior = FillBehavior.HoldEnd,
-                Duration = time,  // Animation playback time
-                EasingFunction = easeFunction,  // Ease function
+                Duration = TimeSpan.FromMilliseconds(250),  // Animation playback time
+                EasingFunction = new PowerEase()  // Ease function
+                {
+                    EasingMode = EasingMode.EaseInOut,
+                    Power = power
+                }
             };
             scale.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
