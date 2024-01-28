@@ -66,7 +66,7 @@ namespace Lottery
                 if (!int.TryParse(quat.Text, out int quai)) quai = 1;
                 else quai = int.Parse(quat.Text);
                 int r = Generate(mini, maxi, iset, random);
-                if (quai < 1 || quai > 3200) MessageBox.Show("The value of 'Quality' you entered is not in the valid range.\nValid range: 1~3200.", "Range", 0, MessageBoxImage.Warning);
+                if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~999999.", this);
                 else if (quai != 1)
                 {
                     int[] rl = new int[quai];
@@ -87,17 +87,17 @@ namespace Lottery
                             rl[i] = r;
                         }
                     }
-                    MessageBox.Show($"Numbers: {string.Join(", ", rl)}.", "Generate", 0, MessageBoxImage.Information);
+                    MyMessageBox.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this);
                 }
-                else MessageBox.Show($"Number {r}.", "Generate", 0, MessageBoxImage.Information);
+                else MyMessageBox.Display("Generate", $"Number {r}.", this);
             }
-            catch (FormatException) { MessageBox.Show("Please enter correct numbers.", "Check", 0, MessageBoxImage.Warning); }
-            catch (NotImplementedException) { MessageBox.Show("This is not a joke.", "Joke", 0, MessageBoxImage.Warning); }
-            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MessageBox.Show("The value of 'Minimum' or 'Maximum' entered is not in the valid range.\nValid range: -2147483648~2147483646.", "Range", 0, MessageBoxImage.Warning); }
-            catch (InvalidOperationException) { MessageBox.Show("Why did 'Minimum' > 'Maximum'?", "Check", 0, MessageBoxImage.Warning); }
+            catch (FormatException) { MyMessageBox.Display("Check", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
+            catch (NotImplementedException) { MyMessageBox.Display("Joke", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
+            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
+            catch (InvalidOperationException) { MyMessageBox.Display("Check", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
         }
 
-        public void ScaleAniShow(UIElement element, double Sizefrom, double Sizeto, double RenderX = 0.5, double RenderY = 0.5, int power = 5)
+        public static void ScaleAniShow(UIElement element, double Sizefrom, double Sizeto, double RenderX = 0.5, double RenderY = 0.5, int power = 5)
         {
             ScaleTransform scale = new ScaleTransform();
             element.RenderTransform = scale;  // Define the central position of the circle.
