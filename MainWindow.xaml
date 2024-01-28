@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Lottery" Height="280" Width="360" MinWidth="230" MinHeight="225">
+        Title="Lottery" Height="280" Width="360" MinWidth="230" MinHeight="261">
     <Grid Margin="3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="91"/>
