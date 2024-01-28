@@ -91,7 +91,7 @@ namespace Lottery
                 }
                 else MyMessageBox.Display("Generate", $"Number {r}.", this);
             }
-            catch (FormatException) { MyMessageBox.Display("Check", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
+            catch (FormatException) { MyMessageBox.Display("Check", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this); }
             catch (NotImplementedException) { MyMessageBox.Display("Joke", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
             catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
             catch (InvalidOperationException) { MyMessageBox.Display("Check", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
