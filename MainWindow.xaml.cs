@@ -66,7 +66,7 @@ namespace Lottery
                 if (!int.TryParse(quat.Text, out int quai)) quai = 1;
                 else quai = int.Parse(quat.Text);
                 int r = Generate(mini, maxi, iset, random);
-                if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~999999.", this);
+                if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this);
                 else if (quai != 1)
                 {
                     int[] rl = new int[quai];
