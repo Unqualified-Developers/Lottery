@@ -14,7 +14,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="3">
             <TextBlock Name="t" FontSize="17" TextWrapping="Wrap"/>
         </ScrollViewer>
-        <Button Content="Copy" Name="c" Grid.Row="1" Margin="3"/>
-        <Button Content="Close" Name="b" Grid.Row="2" Margin="3"/>
+        <Button Style="{DynamicResource ButtonStyle}" Content="Copy" Name="c" Grid.Row="1" Margin="3"/>
+        <Button Style="{DynamicResource ButtonStyle}" Content="Close" Name="b" Grid.Row="2" Margin="3"/>
     </Grid>
 </Window>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media.Animation;
 using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace Lottery
 {
@@ -15,22 +16,15 @@ namespace Lottery
         public MainWindow()
         {
             InitializeComponent();
-            genb.MouseEnter += (s, e) => { ScaleAniShow(genb, 1, 1.05); };
-            genb.MouseLeave += (s, e) => { ScaleAniShow(genb, 1.05, 1); };
-            genb.PreviewMouseDown += (s, e) => { ScaleAniShow(genb, 1.05, 0.95); };
-            genb.PreviewMouseUp += (s, e) => { ScaleAniShow(genb, 0.95, 1.05); };
-            c.MouseEnter += (s, e) => { ScaleAniShow(c, 1, 1.05); };
-            c.MouseLeave += (s, e) => { ScaleAniShow(c, 1.05, 1); };
-            c.PreviewMouseDown += (s, e) => { ScaleAniShow(c, 1.05, 0.95); };
-            c.PreviewMouseUp += (s, e) => { ScaleAniShow(c, 0.95, 1.05); };
-            mint.PreviewMouseDown += (s, e) => { ScaleAniShow(mint, 1, 0.95); };
-            mint.PreviewMouseUp += (s, e) => { ScaleAniShow(mint, 0.95, 1); };
-            maxt.PreviewMouseDown += (s, e) => { ScaleAniShow(maxt, 1, 0.95); };
-            maxt.PreviewMouseUp += (s, e) => { ScaleAniShow(maxt, 0.95, 1); };
-            ignt.PreviewMouseDown += (s, e) => { ScaleAniShow(ignt, 1, 0.95); };
-            ignt.PreviewMouseUp += (s, e) => { ScaleAniShow(ignt, 0.95, 1); };
-            quat.PreviewMouseDown += (s, e) => { ScaleAniShow(quat, 1, 0.95); };
-            quat.PreviewMouseUp += (s, e) => { ScaleAniShow(quat, 0.95, 1); };
+            Ani.ButtonBind(genb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
+            c.MouseEnter += (s, e) => { Ani.ScaleAniShow(c, 1, 1.05); };
+            c.MouseLeave += (s, e) => { Ani.ScaleAniShow(c, 1.05, 1); };
+            c.PreviewMouseDown += (s, e) => { Ani.ScaleAniShow(c, 1.05, 0.95); };
+            c.PreviewMouseUp += (s, e) => { Ani.ScaleAniShow(c, 0.95, 1.05); };
+            Ani.TextBoxBind(mint);
+            Ani.TextBoxBind(maxt);
+            Ani.TextBoxBind(ignt);
+            Ani.TextBoxBind(quat);
         }
         public int Generate(int min, int max, HashSet<int> iset, Random r)
         {
@@ -69,8 +63,7 @@ namespace Lottery
                 if (!int.TryParse(quat.Text, out int quai)) quai = 1;
                 else quai = int.Parse(quat.Text);
                 int r = Generate(mini, maxi, iset, random);
-                if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this);
-                else if (c.IsChecked == true || num1 > quai) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~" + str1 + ".", this);
+                if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyle.Error);
                 else if (quai != 1)
                 {
                     int[] rl = new int[quai];
@@ -95,31 +88,10 @@ namespace Lottery
                 }
                 else MyMessageBox.Display("Generate", $"Number {r}.", this);
             }
-            catch (FormatException) { MyMessageBox.Display("Check", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this); }
-            catch (NotImplementedException) { MyMessageBox.Display("Joke", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
-            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
-            catch (InvalidOperationException) { MyMessageBox.Display("Check", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~3200.", this); }
-        }
-
-        public static void ScaleAniShow(UIElement element, double Sizefrom, double Sizeto, double RenderX = 0.5, double RenderY = 0.5, int power = 5)
-        {
-            ScaleTransform scale = new ScaleTransform();
-            element.RenderTransform = scale;  // Define the central position of the circle.
-            element.RenderTransformOrigin = new Point(RenderX, RenderY);  // Define the transition animation, 'power' is the strength of the transition.
-            DoubleAnimation scaleAnimation = new DoubleAnimation()
-            {
-                From = Sizefrom,  // Start value
-                To = Sizeto,  // End value
-                FillBehavior = FillBehavior.HoldEnd,
-                Duration = TimeSpan.FromMilliseconds(250),  // Animation playback time
-                EasingFunction = new PowerEase()  // Ease function
-                {
-                    EasingMode = EasingMode.EaseInOut,
-                    Power = power
-                }
-            };
-            scale.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
-            scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
+            catch (FormatException) { MyMessageBox.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyle.Error); }
+            catch (NotImplementedException) { MyMessageBox.Display("Joke", "This is not a joke.", this, MyMessageBoxStyle.Error); }
+            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MyMessageBox.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646.", this, MyMessageBoxStyle.Error); }
+            catch (InvalidOperationException) { MyMessageBox.Display("Check", "Why did 'Minimum' > 'Maximum'?", this, MyMessageBoxStyle.Error); }
         }
     }
 }
