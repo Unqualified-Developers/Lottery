@@ -54,7 +54,6 @@ namespace Lottery
             }
             try
             {
-                
                 int mini = int.Parse(mint.Text);
                 int maxi = int.Parse(maxt.Text);
                 if (mini > maxi) throw new InvalidOperationException();
