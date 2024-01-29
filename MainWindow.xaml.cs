@@ -61,7 +61,7 @@ namespace Lottery
                 else quai = int.Parse(quat.Text);
                 if (quai > maxi - mini + 1 || c.IsChecked == true) throw new NotImplementedException();
                 int r = Generate(mini, maxi, iset, random);
-                if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyle.Error);
+                if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyles.Error);
                 else if (quai != 1)
                 {
                     int[] rl = new int[quai];
@@ -86,10 +86,10 @@ namespace Lottery
                 }
                 else MyMessageBox.Display("Generate", $"Number {r}.", this);
             }
-            catch (FormatException) { MyMessageBox.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyle.Warning); }
-            catch (NotImplementedException) { MyMessageBox.Display("Joke", "This is not a joke.", this, MyMessageBoxStyle.Warning); }
-            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MyMessageBox.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646.", this, MyMessageBoxStyle.Error); }
-            catch (InvalidOperationException) { MyMessageBox.Display("Check", "Why did 'Minimum' > 'Maximum'?", this, MyMessageBoxStyle.Warning); }
+            catch (FormatException) { MyMessageBox.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
+            catch (NotImplementedException) { MyMessageBox.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Warning); }
+            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MyMessageBox.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646.", this, MyMessageBoxStyles.Error); }
+            catch (InvalidOperationException) { MyMessageBox.Display("Check", "Why did 'Minimum' > 'Maximum'?", this, MyMessageBoxStyles.Warning); }
         }
     }
 }
