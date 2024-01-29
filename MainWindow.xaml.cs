@@ -57,11 +57,10 @@ namespace Lottery
                 
                 int mini = int.Parse(mint.Text);
                 int maxi = int.Parse(maxt.Text);
-                int num1 = maxi - mini - iset.Count + 1;
-                string str1 = Convert.ToString(num1);
                 if (mini > maxi) throw new InvalidOperationException();
                 if (!int.TryParse(quat.Text, out int quai)) quai = 1;
                 else quai = int.Parse(quat.Text);
+                if (quai > maxi - mini + 1 || c.IsChecked == true) throw new NotImplementedException();
                 int r = Generate(mini, maxi, iset, random);
                 if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyle.Error);
                 else if (quai != 1)
