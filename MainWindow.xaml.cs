@@ -88,10 +88,10 @@ namespace Lottery
                 }
                 else MyMessageBox.Display("Generate", $"Number {r}.", this);
             }
-            catch (FormatException) { MyMessageBox.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyle.Error); }
-            catch (NotImplementedException) { MyMessageBox.Display("Joke", "This is not a joke.", this, MyMessageBoxStyle.Error); }
+            catch (FormatException) { MyMessageBox.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyle.Warning); }
+            catch (NotImplementedException) { MyMessageBox.Display("Joke", "This is not a joke.", this, MyMessageBoxStyle.Warning); }
             catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MyMessageBox.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646.", this, MyMessageBoxStyle.Error); }
-            catch (InvalidOperationException) { MyMessageBox.Display("Check", "Why did 'Minimum' > 'Maximum'?", this, MyMessageBoxStyle.Error); }
+            catch (InvalidOperationException) { MyMessageBox.Display("Check", "Why did 'Minimum' > 'Maximum'?", this, MyMessageBoxStyle.Warning); }
         }
     }
 }

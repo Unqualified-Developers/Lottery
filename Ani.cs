@@ -15,7 +15,7 @@ namespace Lottery
         public static void ButtonBind(Button b, Brush start, Brush mid, Brush end)
         {
             b.Background = mid;
-            b.Foreground = new SolidColorBrush(Colors.White);
+            b.Foreground = Brushes.White;
             b.MouseEnter += (s, e) => { ScaleAniShow(b, 1, 1.05); b.Background = start; };
             b.MouseLeave += (s, e) => { ScaleAniShow(b, 1.05, 1); b.Background = mid; };
             b.PreviewMouseDown += (s, e) => { ScaleAniShow(b, 1.05, 0.95); b.Background = end; };
