@@ -14,15 +14,16 @@ using System.Windows.Shapes;
 
 namespace Lottery
 {
+    /// <summary>
+    /// Interaction logic for MyMessageBox.xaml
+    /// </summary>
     public enum MyMessageBoxStyle
     {
         Information,
         Warning,
         Error
     }
-    /// <summary>
-    /// MyMessageBox.xaml 的交互逻辑
-    /// </summary>
+    
     public partial class MyMessageBox : Window
     {
         public MyMessageBox(string title, string content, Window owner, MyMessageBoxStyle style)
