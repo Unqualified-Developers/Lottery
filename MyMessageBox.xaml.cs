@@ -38,7 +38,7 @@ namespace Lottery
                     Set(Brushes.Orange, Brushes.DarkOrange, Brushes.Coral);
                     break;
                 case MyMessageBoxStyles.Error:
-                    Set(Brushes.Tomato, Brushes.Red, Brushes.Crimson);
+                    Set(new SolidColorBrush(Color.FromRgb(255, 50, 50)), Brushes.Red, Brushes.Crimson);
                     break;
             }
             Title = title;
