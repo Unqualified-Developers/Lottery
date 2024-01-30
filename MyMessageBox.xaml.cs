@@ -24,6 +24,9 @@ namespace Lottery
         public MyMessageBox(string title, string content, Window owner, MyMessageBoxStyles style)
         {
             InitializeComponent();
+            cb.ItemsSource = new int[] { 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29 };
+            cb.SelectedIndex = 4;
+            cb.SelectionChanged += (s, e) => { t.FontSize = int.Parse(cb.SelectedItem.ToString()); };
             b.Click += (s, e) => { Close(); };
             c.Click += (s, e) => { Clipboard.SetText(content); };
             switch (style)
