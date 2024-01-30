@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Lottery" Height="280" Width="360" MinWidth="230" MinHeight="261">
+        Title="Lottery" Height="261" Width="360" MinWidth="230" MinHeight="261">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="17"/>
@@ -29,8 +29,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="36"/>
-            <RowDefinition Height="36"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Label Content="Minimum:" Grid.Row="0"/>
         <TextBox Name="mint" Grid.Row="0"/>
