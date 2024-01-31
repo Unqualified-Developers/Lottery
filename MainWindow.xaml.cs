@@ -17,10 +17,12 @@ namespace Lottery
         {
             InitializeComponent();
             Ani.ButtonBind(genb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
+            Ani.ButtonBind(scrb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
             c.MouseEnter += (s, e) => { Ani.ScaleAniShow(c, 1, 1.05); };
             c.MouseLeave += (s, e) => { Ani.ScaleAniShow(c, 1.05, 1); };
             c.PreviewMouseDown += (s, e) => { Ani.ScaleAniShow(c, 1.05, 0.95); };
             c.PreviewMouseUp += (s, e) => { Ani.ScaleAniShow(c, 0.95, 1.05); };
+            scrb.Click += (s, e) => { System.Diagnostics.Process.Start("https://github.com/Unqualified-Developers/Lottery"); };
             Ani.TextBoxBind(mint);
             Ani.TextBoxBind(maxt);
             Ani.TextBoxBind(ignt);

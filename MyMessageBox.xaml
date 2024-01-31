@@ -19,8 +19,8 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="3" Grid.ColumnSpan="2">
             <TextBlock Name="t" FontSize="17" TextWrapping="Wrap"/>
         </ScrollViewer>
-        <ComboBox Name="cb" IsReadOnly="True" Grid.Row="1" Margin="3" Grid.Column="1"/>
-        <Label Content="Font Size:" FontSize="15" Grid.Row="1" Grid.Column="0"/>
+        <ComboBox Name="cb" IsReadOnly="True" Grid.Row="1" Margin="3" Grid.Column="1" ToolTip="Change the font size of the text above."/>
+        <Label Content="Font Size:" FontSize="15" Grid.Row="1" Grid.Column="0" ToolTip="Change the font size of the text above."/>
         <Button Style="{DynamicResource ButtonStyle}" Content="Copy" Name="c" Grid.Row="2" Margin="3" Grid.ColumnSpan="2"/>
         <Button Style="{DynamicResource ButtonStyle}" Content="Close" Name="b" Grid.Row="3" Margin="3" Grid.ColumnSpan="2"/>
     </Grid>
