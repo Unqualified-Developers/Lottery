@@ -73,10 +73,10 @@ namespace Lottery
                     mini ^= maxi;
                 }
                 int quai = int.TryParse(quat.Text, out int _quai) ? _quai : 1;
-                int r = Generate(mini, maxi, iset, random);
                 if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyles.Error);
                 else if (quai != 1)
                 {
+                    int r;
                     int[] rl = new int[quai];
                     if (c.IsChecked == true)
                     {
@@ -97,7 +97,7 @@ namespace Lottery
                     }
                     MyMessageBox.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this);
                 }
-                else MyMessageBox.Display("Generate", $"Number {r}.", this);
+                else MyMessageBox.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this);
             }
             catch (FormatException) { MyMessageBox.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
             catch (NotImplementedException) { MyMessageBox.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Warning); }
