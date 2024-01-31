@@ -48,7 +48,16 @@ namespace Lottery
                 if (str.Contains('~'))
                 {
                     string[] range = str.Split('~');
-                    if (int.TryParse(range[0], out int min) && int.TryParse(range[1], out int max)) for (int i = min; i <= max; i++) { iset.Add(i); }
+                    if (int.TryParse(range[0], out int min) && int.TryParse(range[1], out int max))
+                    {
+                        if (max < min)
+                        {
+                            min ^= max;
+                            max = min ^ max;
+                            min ^= max;
+                        }
+                        for (int i = min; i <= max; i++) { iset.Add(i); }
+                    }
                 }
                 else if (int.TryParse(str, out int num)) { iset.Add(num); }
             }
@@ -56,7 +65,12 @@ namespace Lottery
             {
                 int mini = int.Parse(mint.Text);
                 int maxi = int.Parse(maxt.Text);
-                if (mini > maxi) throw new InvalidOperationException();
+                if (mini > maxi)
+                {
+                    mini ^= maxi;
+                    maxi = mini ^ maxi;
+                    mini ^= maxi;
+                }
                 if (!int.TryParse(quat.Text, out int quai)) quai = 1;
                 else quai = int.Parse(quat.Text);
                 int r = Generate(mini, maxi, iset, random);
