@@ -34,7 +34,8 @@ namespace Lottery
             {
                 re = r.Next(min, max + 1);
                 i++;
-            } while (iset.Contains(re) && i <= 10000000);
+            }
+            while (iset.Contains(re) && i <= 10000000);
             if (i >= 10000000) throw new NotImplementedException();
             else return re;
         }
@@ -102,7 +103,6 @@ namespace Lottery
             catch (FormatException) { MyMessageBox.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
             catch (NotImplementedException) { MyMessageBox.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Warning); }
             catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MyMessageBox.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646.", this, MyMessageBoxStyles.Error); }
-            catch (InvalidOperationException) { MyMessageBox.Display("Check", "Why did 'Minimum' > 'Maximum'?", this, MyMessageBoxStyles.Warning); }
         }
     }
 }
