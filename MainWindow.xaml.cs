@@ -40,7 +40,7 @@ namespace Lottery
             else return re;
         }
 
-        private void Generate(object sender, RoutedEventArgs e)
+        private void Gen(object sender, RoutedEventArgs e)
         {
             Random random = new Random();
             HashSet<int> iset = new HashSet<int>();
