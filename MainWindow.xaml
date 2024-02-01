@@ -42,7 +42,7 @@
         <Label Content="Quatity:" Grid.Row="3"/>
         <TextBox Name="quat" Grid.Row="3"/>
         <CheckBox Name="c" Content="No Duplication" Height="30" FontSize="15" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.ColumnSpan="2"/>
-        <Button Style="{DynamicResource ButtonStyle}" Content="Generate" Click="Gen" Height="30" Name="genb" Grid.Row="5" Grid.ColumnSpan="2" Margin="3"/>
+        <Button Style="{DynamicResource ButtonStyle}" Content="Generate" Height="30" Name="genb" Grid.Row="5" Grid.ColumnSpan="2" Margin="3"/>
         <Button Style="{DynamicResource ButtonStyle}" Content="Source Code Repository" Height="30" Name="scrb" Grid.Row="6" Grid.ColumnSpan="2" Margin="3" ToolTip="Don't forget to give us a star if you like it."/>
     </Grid>
 </Window>
