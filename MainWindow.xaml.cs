@@ -40,7 +40,7 @@ namespace Lottery
             else return re;
         }
 
-        private void Gen(object sender, RoutedEventArgs e)
+        private void Generate(object sender, RoutedEventArgs e)
         {
             Random random = new Random();
             HashSet<int> iset = new HashSet<int>();
@@ -51,12 +51,7 @@ namespace Lottery
                     string[] range = str.Split('~');
                     if (int.TryParse(range[0], out int min) && int.TryParse(range[1], out int max))
                     {
-                        if (min > max)
-                        {
-                            min ^= max;
-                            max = min ^ max;
-                            min ^= max;
-                        }
+                        if (min > max) (min, max) = (max, min);
                         for (int i = min; i <= max; i++) { iset.Add(i); }
                     }
                 }
@@ -66,12 +61,7 @@ namespace Lottery
             {
                 int mini = int.Parse(mint.Text);
                 int maxi = int.Parse(maxt.Text);
-                if (mini > maxi)
-                {
-                    mini ^= maxi;
-                    maxi = mini ^ maxi;
-                    mini ^= maxi;
-                }
+                if (mini > maxi) (mini, maxi) = (maxi, mini);
                 int quai = int.TryParse(quat.Text, out int _quai) ? _quai : 1;
                 if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyles.Error);
                 else if (quai != 1)
