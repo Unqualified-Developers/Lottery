@@ -1,5 +1,6 @@
 # Lottery
 **A lottery application which is small but strong.**
+It can generate random numbers in the range you entered. You can set the quantity and even the number(s) you want to ignore.
 
 ## Requirement
 **A Windows equipment with `.NET Framework 4.8` or higher.**
