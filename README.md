@@ -11,7 +11,7 @@ However, sometimes you can still use it `without the required environment` due t
 ## Build & Run
 **We advise you to use `Visual Studio` to build the project.**
 
-If you only want to `use` it, please go to the [Release Page](https://github.com/Unqualified-Developers/Lottery/releases) or use the direct links below. The latest release is `v1.0.0.2`.
+If you only want to `use` it, please go to the [Release Page](https://github.com/Unqualified-Developers/Lottery/releases) or use the [Direct Download Links](https://github.com/Unqualified-Developers/Lottery/blob/main/README.md#downloads) below. The latest release is `v1.0.0.2`.
 
 ### Downloads
 
