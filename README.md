@@ -13,4 +13,9 @@ However, sometimes you can still use it `without the required environment` due t
 
 If you only want to `use` it, please go to the [Release Page](https://github.com/Unqualified-Developers/Lottery/releases) or use the direct links below. The latest release is `v1.0.0.2`.
 
+### Downloads
+
 [Executable Program (AMD64)](https://github.com/Unqualified-Developers/Lottery/releases/download/v1.0.0.2/Lottery-amd64.exe) | [Executable Program (Any CPU)](https://github.com/Unqualified-Developers/Lottery/releases/download/v1.0.0.2/Lottery.exe)
+
+[Source code (zip)](https://github.com/Unqualified-Developers/Lottery/archive/refs/tags/v1.0.0.2.zip) | [Source code
+(tar.gz)](https://github.com/Unqualified-Developers/Lottery/archive/refs/tags/v1.0.0.2.tar.gz)
