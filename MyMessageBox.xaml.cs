@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -28,12 +30,12 @@ namespace Lottery
         {
             Ani.ButtonBind(b, start, mid, end);
             Ani.ButtonBind(c, start, mid, end);
+            Ani.ButtonBind(sb, start, mid, end);
         }
 
         public void SetMore(Brush start, Brush mid, Brush end)
         {
-            Ani.ButtonBind(b, start, mid, end);
-            Ani.ButtonBind(c, start, mid, end);
+            Set(start, mid, end);
             Ani.ButtonBind(conb, start, mid, end);
         }
 
@@ -48,16 +50,42 @@ namespace Lottery
 
         public void Display(string title, string content, Window owner, Action action, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
         {
+            MinHeight = 236;
             conb.Click += (s, e) => {
                 Close();
                 action(); 
             };
             RowDefinition newRow = new RowDefinition { Height = new GridLength(36) };
             g.RowDefinitions.Add(newRow);
-            Grid.SetRow(conb, 3);
+            Grid.SetRow(conb, 4);
             Grid.SetColumnSpan(conb, 2);
             g.Children.Add(conb);
             c.Click += (s, e) => { Clipboard.SetText(content); };
+            sb.Click += (s, e) =>
+            {
+                SaveFileDialog dialog = new SaveFileDialog()
+                {
+                    Title = "Save File",
+                    Filter = "Text Files (*.txt) | *.txt"
+                };
+                if (dialog.ShowDialog() == true)
+                {
+                    try
+                    {
+                        using(StreamWriter sw = new StreamWriter(dialog.FileName))
+                        {
+                            sw.Write(content);
+                            sw.Close();
+                            sw.Dispose();
+                        }
+                    }
+                    catch (Exception ex)
+                    { 
+                        MyMessageBox m = new MyMessageBox();
+                        m.Display("Error", $"Error message: {ex.Message}", this, MyMessageBoxStyles.Error);
+                    }
+                }
+            };
             switch (style)
             {
                 case MyMessageBoxStyles.Information:
@@ -79,6 +107,31 @@ namespace Lottery
         public void Display(string title, string content, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
         {
             c.Click += (s, e) => { Clipboard.SetText(content); };
+            sb.Click += (s, e) =>
+            {
+                SaveFileDialog dialog = new SaveFileDialog()
+                {
+                    Title = "Save File",
+                    Filter = "Text Files (*.txt)|*.txt"
+                };
+                if (dialog.ShowDialog() == true)
+                {
+                    try
+                    {
+                        using (StreamWriter sw = new StreamWriter(dialog.FileName))
+                        {
+                            sw.Write(content);
+                            sw.Close();
+                            sw.Dispose();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MyMessageBox m = new MyMessageBox();
+                        m.Display("Error", $"Error message: {ex.Message}", this, MyMessageBoxStyles.Error);
+                    }
+                }
+            };
             switch (style)
             {
                 case MyMessageBoxStyles.Information:

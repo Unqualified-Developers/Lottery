@@ -10,6 +10,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="27"/>
             <RowDefinition Height="36"/>
+            <RowDefinition Height="36"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -22,5 +23,6 @@
         <Label Content="Font Size:" FontSize="15" Grid.Row="1" Grid.Column="0" ToolTip="Change the font size of the text above."/>
         <Button Style="{DynamicResource ButtonStyle}" Content="Copy" Name="c" Grid.Row="2" Grid.Column="0" Margin="3"/>
         <Button Style="{DynamicResource ButtonStyle}" Content="Close" Name="b" Grid.Row="2" Grid.Column="1" Margin="3"/>
+        <Button Style="{DynamicResource ButtonStyle}" Content="Save" Name="sb" Grid.Row="3" Margin="3" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
