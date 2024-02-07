@@ -46,6 +46,32 @@ namespace Lottery
             cb.SelectedIndex = 4;
             cb.SelectionChanged += (s, e) => { t.FontSize = int.Parse(cb.SelectedItem.ToString()); };
             b.Click += (s, e) => { Close(); };
+            c.Click += (s, e) => { Clipboard.SetText(t.Text); };
+            sb.Click += (s, e) =>
+            {
+                SaveFileDialog dialog = new SaveFileDialog()
+                {
+                    Title = "Save File",
+                    Filter = "Text Files (*.txt)|*.txt"
+                };
+                if (dialog.ShowDialog() == true)
+                {
+                    try
+                    {
+                        using (StreamWriter sw = new StreamWriter(dialog.FileName))
+                        {
+                            sw.Write(t.Text);
+                            sw.Close();
+                            sw.Dispose();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MyMessageBox m = new MyMessageBox();
+                        m.Display("Error", $"Error message: {ex.Message}", this, MyMessageBoxStyles.Error);
+                    }
+                }
+            };
         }
 
         public void Display(string title, string content, Window owner, Action action, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
@@ -60,32 +86,6 @@ namespace Lottery
             Grid.SetRow(conb, 4);
             Grid.SetColumnSpan(conb, 2);
             g.Children.Add(conb);
-            c.Click += (s, e) => { Clipboard.SetText(content); };
-            sb.Click += (s, e) =>
-            {
-                SaveFileDialog dialog = new SaveFileDialog()
-                {
-                    Title = "Save File",
-                    Filter = "Text Files (*.txt) | *.txt"
-                };
-                if (dialog.ShowDialog() == true)
-                {
-                    try
-                    {
-                        using(StreamWriter sw = new StreamWriter(dialog.FileName))
-                        {
-                            sw.Write(content);
-                            sw.Close();
-                            sw.Dispose();
-                        }
-                    }
-                    catch (Exception ex)
-                    { 
-                        MyMessageBox m = new MyMessageBox();
-                        m.Display("Error", $"Error message: {ex.Message}", this, MyMessageBoxStyles.Error);
-                    }
-                }
-            };
             switch (style)
             {
                 case MyMessageBoxStyles.Information:
@@ -106,32 +106,7 @@ namespace Lottery
 
         public void Display(string title, string content, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
         {
-            c.Click += (s, e) => { Clipboard.SetText(content); };
-            sb.Click += (s, e) =>
-            {
-                SaveFileDialog dialog = new SaveFileDialog()
-                {
-                    Title = "Save File",
-                    Filter = "Text Files (*.txt)|*.txt"
-                };
-                if (dialog.ShowDialog() == true)
-                {
-                    try
-                    {
-                        using (StreamWriter sw = new StreamWriter(dialog.FileName))
-                        {
-                            sw.Write(content);
-                            sw.Close();
-                            sw.Dispose();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MyMessageBox m = new MyMessageBox();
-                        m.Display("Error", $"Error message: {ex.Message}", this, MyMessageBoxStyles.Error);
-                    }
-                }
-            };
+            t.Text = content;
             switch (style)
             {
                 case MyMessageBoxStyles.Information:
@@ -146,7 +121,6 @@ namespace Lottery
             }
             Title = title;
             Owner = owner;
-            t.Text = content;
             ShowDialog();
         }
     }
