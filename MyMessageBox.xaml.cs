@@ -26,17 +26,25 @@ namespace Lottery
             Style = (Style)Application.Current.FindResource("ButtonStyle")
         };
         
-        public void Set(Brush start, Brush mid, Brush end)
+        private void Set(Brush start, Brush mid, Brush end)
         {
             Ani.ButtonBind(b, start, mid, end);
             Ani.ButtonBind(c, start, mid, end);
             Ani.ButtonBind(sb, start, mid, end);
         }
 
-        public void SetMore(Brush start, Brush mid, Brush end)
+        private void SetMore(Brush start, Brush mid, Brush end)
         {
             Set(start, mid, end);
             Ani.ButtonBind(conb, start, mid, end);
+        }
+
+        private void Register(string title, string content, Window owner)
+        {
+            Title = title;
+            Owner = owner;
+            t.Text = content;
+            ShowDialog();
         }
 
         public MyMessageBox()
@@ -89,11 +97,8 @@ namespace Lottery
                     SetMore(new SolidColorBrush(Color.FromRgb(255, 75, 75)), Brushes.Red, Brushes.Crimson);
                     break;
             }
-            Title = title;
-            Owner = owner;
-            t.Text = content;
             MinHeight = 236;
-            ShowDialog();
+            Register(title, content, owner);
         }
 
         public void Display(string title, string content, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
@@ -110,10 +115,7 @@ namespace Lottery
                     Set(new SolidColorBrush(Color.FromRgb(255, 75, 75)), Brushes.Red, Brushes.Crimson);
                     break;
             }
-            Title = title;
-            Owner = owner;
-            t.Text = content;
-            ShowDialog();
+            Register(title, content, owner);
         }
     }
 }
