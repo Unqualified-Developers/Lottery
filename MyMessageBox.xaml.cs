@@ -76,7 +76,6 @@ namespace Lottery
 
         public void Display(string title, string content, Window owner, Action action, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
         {
-            MinHeight = 236;
             conb.Click += (s, e) => {
                 Close();
                 action(); 
@@ -101,12 +100,12 @@ namespace Lottery
             Title = title;
             Owner = owner;
             t.Text = content;
+            MinHeight = 236;
             ShowDialog();
         }
 
         public void Display(string title, string content, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
         {
-            t.Text = content;
             switch (style)
             {
                 case MyMessageBoxStyles.Information:
@@ -121,6 +120,7 @@ namespace Lottery
             }
             Title = title;
             Owner = owner;
+            t.Text = content;
             ShowDialog();
         }
     }
