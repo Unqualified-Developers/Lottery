@@ -19,6 +19,13 @@ namespace Lottery
     
     public partial class MyMessageBox : Window
     {
+        private readonly Button conb = new Button
+        {
+            Margin = new Thickness(3),
+            Content = "Continue",
+            Style = (Style)Application.Current.FindResource("ButtonStyle")
+        };
+        
         public void Set(Brush start, Brush mid, Brush end)
         {
             Ani.ButtonBind(b, start, mid, end);
@@ -69,12 +76,6 @@ namespace Lottery
 
         public void Display(string title, string content, Window owner, Action action, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
         {
-            Button conb = new Button
-            {
-                Margin = new Thickness(3),
-                Content = "Continue",
-                Style = (Style)Application.Current.FindResource("ButtonStyle")
-            };
             conb.Click += (s, e) => {
                 Close();
                 action(); 
