@@ -29,7 +29,7 @@ namespace Lottery
             Ani.TextBoxBind(quat);
         }
         
-        public void Gen()
+        private void Gen()
         {
             Random random = new Random();
             HashSet<int> iset = new HashSet<int>();
@@ -84,7 +84,7 @@ namespace Lottery
             catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MyMessageBox.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646.", this, MyMessageBoxStyles.Error); }
         }
 
-        public int Generate(int min, int max, HashSet<int> iset, Random r)
+        private int Generate(int min, int max, HashSet<int> iset, Random r)
         {
             int i = 0;
             int re;
