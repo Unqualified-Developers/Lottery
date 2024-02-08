@@ -56,15 +56,7 @@ namespace Lottery
                 };
                 if (dialog.ShowDialog() == true)
                 {
-                    try
-                    {
-                        using (StreamWriter sw = new StreamWriter(dialog.FileName))
-                        {
-                            sw.Write(t.Text);
-                            sw.Close();
-                            sw.Dispose();
-                        }
-                    }
+                    try { File.WriteAllText(dialog.FileName, t.Text); }
                     catch (Exception ex)
                     {
                         MyMessageBox m = new MyMessageBox();
