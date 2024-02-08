@@ -39,29 +39,7 @@ namespace Lottery
             Ani.ButtonBind(conb, start, mid, end);
         }
 
-        private void Register(string title, string content, Window owner, bool c, MyMessageBoxStyles style)
-        {
-            switch (style)
-            {
-                case MyMessageBoxStyles.Information:
-                    if (c) SetMore(Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
-                    else Set(Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
-                    break;
-                case MyMessageBoxStyles.Warning:
-                    if (c) SetMore(Brushes.Orange, Brushes.DarkOrange, Brushes.Coral);
-                    else Set(Brushes.Orange, Brushes.DarkOrange, Brushes.Coral);
-                    break;
-                case MyMessageBoxStyles.Error:
-                    if (c) SetMore(new SolidColorBrush(Color.FromRgb(255, 75, 75)), Brushes.Red, Brushes.Crimson);
-                    else Set(new SolidColorBrush(Color.FromRgb(255, 75, 75)), Brushes.Red, Brushes.Crimson);
-                    break;
-            }
-            Title = title;
-            Owner = owner;
-            t.Text = content;
-        }
-
-        private void Build()
+        private void Register(string title, string content, Window owner, bool co, MyMessageBoxStyles style)
         {
             InitializeComponent();
             cb.ItemsSource = new int[] { 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29 };
@@ -82,17 +60,30 @@ namespace Lottery
                     catch (Exception ex) { Display("Error", $"Error message: {ex.Message}", this, MyMessageBoxStyles.Error); }
                 }
             };
+            switch (style)
+            {
+                case MyMessageBoxStyles.Information:
+                    if (co) SetMore(Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
+                    else Set(Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
+                    break;
+                case MyMessageBoxStyles.Warning:
+                    if (co) SetMore(Brushes.Orange, Brushes.DarkOrange, Brushes.Coral);
+                    else Set(Brushes.Orange, Brushes.DarkOrange, Brushes.Coral);
+                    break;
+                case MyMessageBoxStyles.Error:
+                    if (co) SetMore(new SolidColorBrush(Color.FromRgb(255, 75, 75)), Brushes.Red, Brushes.Crimson);
+                    else Set(new SolidColorBrush(Color.FromRgb(255, 75, 75)), Brushes.Red, Brushes.Crimson);
+                    break;
+            }
+            Title = title;
+            Owner = owner;
+            t.Text = content;
         }
 
-        public MyMessageBox(string title, string content, Window owner, MyMessageBoxStyles style)
-        {
-            Build();
-            Register(title, content, owner, false, style);
-        }
+        public MyMessageBox(string title, string content, Window owner, MyMessageBoxStyles style) { Register(title, content, owner, false, style); }
 
         public MyMessageBox(string title, string content, Window owner, Action action, MyMessageBoxStyles style)
         {
-            Build();
             conb.Click += (s, e) => {
                 Close();
                 action();
