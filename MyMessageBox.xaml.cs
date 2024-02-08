@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -59,10 +60,9 @@ namespace Lottery
             Title = title;
             Owner = owner;
             t.Text = content;
-            ShowDialog();
         }
 
-        public MyMessageBox()
+        private void Build()
         {
             InitializeComponent();
             cb.ItemsSource = new int[] { 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29 };
@@ -80,20 +80,23 @@ namespace Lottery
                 if (dialog.ShowDialog() == true)
                 {
                     try { File.WriteAllText(dialog.FileName, t.Text); }
-                    catch (Exception ex)
-                    {
-                        MyMessageBox m = new MyMessageBox();
-                        m.Display("Error", $"Error message: {ex.Message}", this, MyMessageBoxStyles.Error);
-                    }
+                    catch (Exception ex) { Display("Error", $"Error message: {ex.Message}", this, MyMessageBoxStyles.Error); }
                 }
             };
         }
 
-        public void Display(string title, string content, Window owner, Action action, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
+        public MyMessageBox(string title, string content, Window owner, MyMessageBoxStyles style)
         {
+            Build();
+            Register(title, content, owner, false, style);
+        }
+
+        public MyMessageBox(string title, string content, Window owner, Action action, MyMessageBoxStyles style)
+        {
+            Build();
             conb.Click += (s, e) => {
                 Close();
-                action(); 
+                action();
             };
             RowDefinition newRow = new RowDefinition { Height = new GridLength(36) };
             g.RowDefinitions.Add(newRow);
@@ -104,6 +107,16 @@ namespace Lottery
             Register(title, content, owner, true, style);
         }
 
-        public void Display(string title, string content, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information) { Register(title, content, owner, false, style); }
+        public static void Display(string title, string content, Window owner, Action action, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
+        {
+            MyMessageBox m = new MyMessageBox(title, content, owner, action, style);
+            m.ShowDialog();
+        }
+
+        public static void Display(string title, string content, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
+        {
+            MyMessageBox m = new MyMessageBox(title, content, owner, style);
+            m.ShowDialog();
+        }
     }
 }
