@@ -31,6 +31,7 @@ namespace Lottery
         
         private void Gen()
         {
+            MyMessageBox m = new MyMessageBox();
             Random random = new Random();
             HashSet<int> iset = new HashSet<int>();
             foreach (string str in ignt.Text.Split(' '))
@@ -53,7 +54,7 @@ namespace Lottery
                 if (mini > maxi) (mini, maxi) = (maxi, mini);
                 int quai = int.TryParse(quat.Text, out int _quai) ? _quai : 1;
                 if (quai > maxi - mini + 1 && c.IsChecked == true) throw new NotImplementedException();
-                if (quai < 1 || quai > 99999) MyMessageBox.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyles.Error);
+                if (quai < 1 || quai > 99999) m.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyles.Error);
                 else if (quai != 1)
                 {
                     int r;
@@ -75,13 +76,13 @@ namespace Lottery
                             rl[i] = r;
                         }
                     }
-                    MyMessageBox.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, Gen);
+                    m.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, Gen);
                 }
-                else MyMessageBox.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this, Gen);
+                else m.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this, Gen);
             }
-            catch (FormatException) { MyMessageBox.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
-            catch (NotImplementedException) { MyMessageBox.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Warning); }
-            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { MyMessageBox.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646.", this, MyMessageBoxStyles.Error); }
+            catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
+            catch (NotImplementedException) { m.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Warning); }
+            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { m.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646.", this, MyMessageBoxStyles.Error); }
         }
 
         private int Generate(int min, int max, HashSet<int> iset, Random r)
