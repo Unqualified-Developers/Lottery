@@ -13,8 +13,8 @@
             <RowDefinition Height="36"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="3" Grid.ColumnSpan="2">
             <TextBlock Name="t" FontSize="17" TextWrapping="Wrap"/>

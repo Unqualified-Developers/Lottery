@@ -69,23 +69,20 @@ namespace Lottery
             cb.SelectedIndex = 4;
             cb.SelectionChanged += (s, e) => { t.FontSize = int.Parse(cb.SelectedItem.ToString()); };
             b.Click += (s, e) => { Close(); };
-            c.Click += (s, e) => { Clipboard.SetText(t.Text); };
+            c.Click += (s, e) =>
+            {
+                try { Clipboard.SetText(t.Text); }
+                catch
+                {
+                    MyMessageBox m = new MyMessageBox { Width = 250, Height = 200 };
+                    m.c.Visibility = Visibility.Collapsed;
+                    m.Display("Copy", "Stop clicking the button 'Copy'!", this, MyMessageBoxStyles.Warning);
+                }
+            };
             sb.Click += (s, e) =>
             {
-                SaveFileDialog dialog = new SaveFileDialog()
-                {
-                    Title = "Save File",
-                    Filter = "Text Files (*.txt)|*.txt"
-                };
-                if (dialog.ShowDialog() == true)
-                {
-                    try { File.WriteAllText(dialog.FileName, t.Text); }
-                    catch (Exception ex)
-                    {
-                        MyMessageBox m = new MyMessageBox();
-                        m.Display("Error", $"Error message: {ex.Message}", this, MyMessageBoxStyles.Error);
-                    }
-                }
+                SaveFileDialog dialog = new SaveFileDialog { Title = "Save File", Filter = "Text Files (*.txt)|*.txt" };
+                if ((bool)dialog.ShowDialog()) File.WriteAllText(dialog.FileName, t.Text);
             };
         }
 

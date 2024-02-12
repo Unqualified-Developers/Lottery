@@ -14,6 +14,7 @@ namespace Lottery
         public MainWindow()
         {
             InitializeComponent();
+            Closed += (s, e) => { Environment.Exit(0); };
             Ani.ButtonBind(genb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
             Ani.ButtonBind(scrb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
             c.MouseEnter += (s, e) => { Ani.ScaleAniShow(c, 1, 1.05); };
