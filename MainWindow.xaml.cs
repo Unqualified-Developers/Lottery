@@ -71,7 +71,7 @@ namespace Lottery
             }
             catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
             catch (NotImplementedException) { m.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Warning); }
-            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { m.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483647.", this, MyMessageBoxStyles.Error); }
+            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { m.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646. You have better not enter the range '-2147483648~2147483647' because it may go wrong.", this, MyMessageBoxStyles.Error); }
         }
 
         private int Generate(int min, int max, HashSet<int> iset, Random r)
