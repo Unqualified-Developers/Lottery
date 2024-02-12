@@ -25,7 +25,7 @@ namespace Lottery
             Content = "Continue",
             Style = (Style)Application.Current.FindResource("ButtonStyle")
         };
-        
+
         private void Set(Brush start, Brush mid, Brush end)
         {
             Ani.ButtonBind(b, start, mid, end);

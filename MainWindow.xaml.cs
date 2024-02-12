@@ -22,7 +22,6 @@ namespace Lottery
             c.PreviewMouseUp += (s, e) => { Ani.ScaleAniShow(c, 0.95, 1.05); };
             scrb.Click += (s, e) => { System.Diagnostics.Process.Start("https://github.com/Unqualified-Developers/Lottery"); };
             genb.Click += (s, e) => { Gen(); };
-
             Ani.TextBoxBind(mint);
             Ani.TextBoxBind(maxt);
             Ani.TextBoxBind(ignt);
@@ -53,28 +52,18 @@ namespace Lottery
                 int maxi = int.Parse(maxt.Text);
                 if (mini > maxi) (mini, maxi) = (maxi, mini);
                 int quai = int.TryParse(quat.Text, out int _quai) ? _quai : 1;
-                if (quai > maxi - mini + 1 && c.IsChecked == true) throw new NotImplementedException();
+                bool cc = (bool)c.IsChecked;
+                if (quai > maxi - mini + 1 && cc) throw new NotImplementedException();
                 if (quai < 1 || quai > 99999) m.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyles.Error);
                 else if (quai != 1)
                 {
                     int r;
                     int[] rl = new int[quai];
-                    if (c.IsChecked == true)
+                    for (int i = 0; i < quai; i++)
                     {
-                        for (int i = 0; i < quai; i++)
-                        {
-                            r = Generate(mini, maxi, iset, random);
-                            rl[i] = r;
-                            iset.Add(r);
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < quai; i++)
-                        {
-                            r = Generate(mini, maxi, iset, random);
-                            rl[i] = r;
-                        }
+                        r = Generate(mini, maxi, iset, random);
+                        rl[i] = r;
+                        if (cc) iset.Add(r);
                     }
                     m.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, Gen);
                 }
@@ -82,7 +71,7 @@ namespace Lottery
             }
             catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
             catch (NotImplementedException) { m.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Warning); }
-            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { m.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646.", this, MyMessageBoxStyles.Error); }
+            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { m.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483647.", this, MyMessageBoxStyles.Error); }
         }
 
         private int Generate(int min, int max, HashSet<int> iset, Random r)
@@ -95,7 +84,7 @@ namespace Lottery
                 i++;
             }
             while (iset.Contains(re) && i <= 10000000);
-            if (i >= 10000000) throw new NotImplementedException();
+            if (i == 10000001) throw new NotImplementedException();
             else return re;
         }
     }
