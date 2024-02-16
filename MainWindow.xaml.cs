@@ -53,13 +53,12 @@ namespace Lottery
                 int maxi = int.Parse(maxt.Text);
                 if (mini > maxi) (mini, maxi) = (maxi, mini);
                 int quai = int.TryParse(quat.Text, out int _quai) ? _quai : 1;
-                bool cc = (bool)c.IsChecked;
-                if (quai > maxi - mini + 1 && cc) throw new NotImplementedException();
                 if (quai < 1 || quai > 99999) m.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyles.Error);
                 else if (quai != 1)
                 {
                     int r;
                     int[] rl = new int[quai];
+                    bool cc = (bool)c.IsChecked;
                     for (int i = 0; i < quai; i++)
                     {
                         r = Generate(mini, maxi, iset, random);

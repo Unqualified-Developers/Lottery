@@ -88,7 +88,8 @@ namespace Lottery
 
         public void Display(string title, string content, Window owner, Action action, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
         {
-            conb.Click += (s, e) => {
+            conb.Click += (s, e) =>
+            {
                 Close();
                 action(); 
             };
