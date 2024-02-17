@@ -74,6 +74,15 @@ namespace Lottery
             catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { m.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646. You have better not enter the range '-2147483648~2147483647' because it may go wrong.", this, MyMessageBoxStyles.Error); }
         }
 
+        /// <summary>
+        /// Generates a random integer within the specified range, excluding the numbers in the given HashSet.
+        /// </summary>
+        /// <param name="min">The minimum value of the range.</param>
+        /// <param name="max">The maximum value of the range.</param>
+        /// <param name="iset">The HashSet containing the numbers to be excluded.</param>
+        /// <param name="r">The Random object used for generating random numbers.</param>
+        /// <returns>A random integer within the specified range, excluding the numbers in the HashSet.</returns>
+        /// <exception cref="System.NotImplementedException">Thrown when the maximum number of iterations is reached without finding a suitable number.</exception>
         private int Generate(int min, int max, HashSet<int> iset, Random r)
         {
             int i = 0;
