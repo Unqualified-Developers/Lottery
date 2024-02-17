@@ -5,6 +5,8 @@
 
 It can generate random numbers in the range you entered. You can set the `quantity` and even the numbers you want to `ignore`.
 
+![image](https://github.com/Unqualified-Developers/Lottery/assets/109074663/5f5b8c43-a9c7-4316-b11a-aff92c3f8de9)
+
 ## Requirement
 **A Windows equipment with `.NET Framework 4.8` or higher.**
 
