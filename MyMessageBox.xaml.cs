@@ -86,6 +86,14 @@ namespace Lottery
             };
         }
 
+        /// <summary>
+        /// Display a message box with a "Continue" button that executes the specified action when clicked.
+        /// </summary>
+        /// <param name="title">The title of the message box.</param>
+        /// <param name="content">The content of the message box.</param>
+        /// <param name="owner">The owner window of the message box.</param>
+        /// <param name="action">The action to be executed when the "Continue" button is clicked.</param>
+        /// <param name="style">The style of the message box (Information, Warning, Error).</param>
         public void Display(string title, string content, Window owner, Action action, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
         {
             conb.Click += (s, e) =>
@@ -102,6 +110,13 @@ namespace Lottery
             Register(title, content, owner, true, style);
         }
 
+        /// <summary>
+        /// Display a message box without a "Continue" button.
+        /// </summary>
+        /// <param name="title">The title of the message box.</param>
+        /// <param name="content">The content of the message box.</param>
+        /// <param name="owner">The owner window of the message box.</param>
+        /// <param name="style">The style of the message box (Information, Warning, Error).</param>
         public void Display(string title, string content, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information) { Register(title, content, owner, false, style); }
     }
 }
