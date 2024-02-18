@@ -9,7 +9,7 @@ namespace Lottery
     internal class Ani
     {
         /// <summary>
-        /// Apply a scaling animation to the specified UI element, animating its size from one value to another.
+        /// Apply a scaling animation to the specified <see cref="UIElement"/>, animating its size from one value to another.
         /// </summary>
         /// <param name="element">The UI element to which the scaling animation will be applied.</param>
         /// <param name="sizeFrom">The starting size of the element.</param>
