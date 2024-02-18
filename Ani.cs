@@ -8,22 +8,6 @@ namespace Lottery
 {
     internal class Ani
     {
-        public static void ButtonBind(Button b, Brush start, Brush mid, Brush end)
-        {
-            b.Background = mid;
-            b.Foreground = Brushes.White;
-            b.MouseEnter += (s, e) => { ScaleAniShow(b, 1, 1.05); b.Background = start; };
-            b.MouseLeave += (s, e) => { ScaleAniShow(b, 1.05, 1); b.Background = mid; };
-            b.PreviewMouseDown += (s, e) => { ScaleAniShow(b, 1.05, 0.95); b.Background = end; };
-            b.PreviewMouseUp += (s, e) => { ScaleAniShow(b, 0.95, 1.05); b.Background = start; };
-        }
-
-        public static void TextBoxBind(TextBox t)
-        {
-            t.PreviewMouseDown += (s, e) => { ScaleAniShow(t, 1, 0.95); };
-            t.PreviewMouseUp += (s, e) => { ScaleAniShow(t, 0.95, 1); };
-        }
-
         /// <summary>
         /// Apply a scaling animation to the specified UI element, animating its size from one value to another.
         /// </summary>
@@ -52,6 +36,22 @@ namespace Lottery
             };
             scale.BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimation);
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
+        }
+
+        public static void ButtonBind(Button b, Brush start, Brush mid, Brush end)
+        {
+            b.Background = mid;
+            b.Foreground = Brushes.White;
+            b.MouseEnter += (s, e) => { ScaleAniShow(b, 1, 1.05); b.Background = start; };
+            b.MouseLeave += (s, e) => { ScaleAniShow(b, 1.05, 1); b.Background = mid; };
+            b.PreviewMouseDown += (s, e) => { ScaleAniShow(b, 1.05, 0.95); b.Background = end; };
+            b.PreviewMouseUp += (s, e) => { ScaleAniShow(b, 0.95, 1.05); b.Background = start; };
+        }
+
+        public static void TextBoxBind(TextBox t)
+        {
+            t.PreviewMouseDown += (s, e) => { ScaleAniShow(t, 1, 0.95); };
+            t.PreviewMouseUp += (s, e) => { ScaleAniShow(t, 0.95, 1); };
         }
     }
 }

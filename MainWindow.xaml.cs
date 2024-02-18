@@ -28,7 +28,34 @@ namespace Lottery
             Ani.TextBoxBind(ignt);
             Ani.TextBoxBind(quat);
         }
-        
+
+        /// <summary>
+        /// Generates a random <see langword="int"/> value within the specified range, excluding the numbers in the given HashSet.
+        /// </summary>
+        /// <remarks>
+        /// This method generates a random <see langword="int"/> value within the range specified by min and max, while ensuring that the generated number is not present in the provided HashSet. <br/>
+        /// If a suitable number cannot be found within 10,000,000 iterations, a <see cref="NotImplementedException"/> is thrown.
+        /// </remarks>
+        /// <param name="min">The minimum value of the range.</param>
+        /// <param name="max">The maximum value of the range.</param>
+        /// <param name="iset">The HashSet containing the numbers to be excluded.</param>
+        /// <param name="r">The Random object used for generating random numbers.</param>
+        /// <returns>A random <see langword="int"/> value within the specified range, excluding the numbers in the HashSet.</returns>
+        /// <exception cref="NotImplementedException">Thrown when the maximum number of iterations is reached without finding a suitable number.</exception>
+        private int Generate(int min, int max, HashSet<int> iset, Random r)
+        {
+            int i = 0;
+            int re;
+            do
+            {
+                re = r.Next(min, max + 1);
+                i++;
+            }
+            while (iset.Contains(re) && i <= 10000000);
+            if (i == 10000001) throw new NotImplementedException();
+            else return re;
+        }
+
         private void Gen()
         {
             MyMessageBox m = new MyMessageBox();
@@ -72,33 +99,6 @@ namespace Lottery
             catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
             catch (NotImplementedException) { m.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Warning); }
             catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { m.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646. You have better not enter the range '-2147483648~2147483647' because it may go wrong.", this, MyMessageBoxStyles.Error); }
-        }
-
-        /// <summary>
-        /// Generates a random <see langword="int"/> value within the specified range, excluding the numbers in the given HashSet.
-        /// </summary>
-        /// <remarks>
-        /// This method generates a random <see langword="int"/> value within the range specified by min and max, while ensuring that the generated number is not present in the provided HashSet. <br/>
-        /// If a suitable number cannot be found within 10,000,000 iterations, a <see cref="NotImplementedException"/> is thrown.
-        /// </remarks>
-        /// <param name="min">The minimum value of the range.</param>
-        /// <param name="max">The maximum value of the range.</param>
-        /// <param name="iset">The HashSet containing the numbers to be excluded.</param>
-        /// <param name="r">The Random object used for generating random numbers.</param>
-        /// <returns>A random <see langword="int"/> value within the specified range, excluding the numbers in the HashSet.</returns>
-        /// <exception cref="NotImplementedException">Thrown when the maximum number of iterations is reached without finding a suitable number.</exception>
-        private int Generate(int min, int max, HashSet<int> iset, Random r)
-        {
-            int i = 0;
-            int re;
-            do
-            {
-                re = r.Next(min, max + 1);
-                i++;
-            }
-            while (iset.Contains(re) && i <= 10000000);
-            if (i == 10000001) throw new NotImplementedException();
-            else return re;
         }
     }
 }
