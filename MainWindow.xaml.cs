@@ -36,7 +36,7 @@ namespace Lottery
             BigInteger zeroBasedUpperBound = maxValue - minValue;
             byte[] bytes = zeroBasedUpperBound.ToByteArray();
             byte lastByteMask = 0b11111111;
-            for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1) { if ((bytes[bytes.Length - 1] & mask) == mask) break; // We found it. }
+            for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1) { if ((bytes[bytes.Length - 1] & mask) == mask) break; }  // We found it.
             while (true)
             {
                 random.NextBytes(bytes);
