@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
+using System.Diagnostics;
+using System.Numerics;
 
 namespace Lottery
 {
@@ -29,6 +31,27 @@ namespace Lottery
             Ani.TextBoxBind(quat);
         }
 
+        public BigInteger NextBigInteger(Random random, BigInteger minValue, BigInteger maxValue)
+        {
+            if (minValue > maxValue) throw new ArgumentException();
+            if (minValue == maxValue) return minValue;
+            BigInteger zeroBasedUpperBound = maxValue - minValue;
+            byte[] bytes = zeroBasedUpperBound.ToByteArray();
+            byte lastByteMask = 0b11111111;
+            for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1)
+            {
+                if ((bytes[bytes.Length - 1] & mask) == mask) break; // We found it.
+            }
+
+            while (true)
+            {
+                random.NextBytes(bytes);
+                bytes[bytes.Length - 1] &= lastByteMask;
+                BigInteger result = new BigInteger(bytes);
+                if (result <= zeroBasedUpperBound) return result + minValue;
+            }
+        }
+
         /// <summary>
         /// Generates a random <see langword="int"/> value within the specified range, excluding the numbers in the given HashSet.
         /// </summary>
@@ -42,13 +65,13 @@ namespace Lottery
         /// <param name="r">The Random object used for generating random numbers.</param>
         /// <returns>A random <see langword="int"/> value within the specified range, excluding the numbers in the HashSet.</returns>
         /// <exception cref="NotImplementedException">Thrown when the maximum number of iterations is reached without finding a suitable number.</exception>
-        private int Generate(int min, int max, HashSet<int> iset, Random r)
+        private BigInteger Generate(BigInteger min, BigInteger max, HashSet<BigInteger> iset, Random r)
         {
             int i = 0;
-            int re;
+            BigInteger re;
             do
             {
-                re = r.Next(min, max + 1);
+                re = NextBigInteger(r, min, max);
                 i++;
             }
             while (iset.Contains(re) && i <= 10000000);
@@ -60,7 +83,7 @@ namespace Lottery
         {
             MyMessageBox m = new MyMessageBox();
             Random random = new Random();
-            HashSet<int> iset = new HashSet<int>();
+            HashSet<BigInteger> iset = new HashSet<BigInteger>();
             foreach (string str in ignt.Text.Split(' '))
             {
                 if (str.Contains('~'))
@@ -76,15 +99,15 @@ namespace Lottery
             }
             try
             {
-                int mini = int.Parse(mint.Text);
-                int maxi = int.Parse(maxt.Text);
+                BigInteger mini = BigInteger.Parse(mint.Text);
+                BigInteger maxi = BigInteger.Parse(maxt.Text);
                 if (mini > maxi) (mini, maxi) = (maxi, mini);
                 int quai = int.TryParse(quat.Text, out int _quai) ? _quai : 1;
                 if (quai < 1 || quai > 99999) m.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyles.Error);
                 else if (quai != 1)
                 {
-                    int r;
-                    int[] rl = new int[quai];
+                    BigInteger r;
+                    BigInteger[] rl = new BigInteger[quai];
                     bool cc = (bool)c.IsChecked;
                     for (int i = 0; i < quai; i++)
                     {
