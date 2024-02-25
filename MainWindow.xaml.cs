@@ -30,7 +30,7 @@ namespace Lottery
             Ani.TextBoxBind(quat);
         }
 
-        public BigInteger NextBigInteger(Random random, BigInteger minValue, BigInteger maxValue)
+        private BigInteger NextBigInteger(Random random, BigInteger minValue, BigInteger maxValue)
         {
             if (minValue == maxValue) return minValue;
             BigInteger zeroBasedUpperBound = maxValue - minValue;
@@ -59,7 +59,7 @@ namespace Lottery
         /// <param name="r">The Random object used for generating random numbers.</param>
         /// <returns>A random <see langword="int"/> value within the specified range, excluding the numbers in the HashSet.</returns>
         /// <exception cref="NotImplementedException">Thrown when the maximum number of iterations is reached without finding a suitable number.</exception>
-        public BigInteger Generate(BigInteger min, BigInteger max, HashSet<BigInteger> iset, Random r)
+        private BigInteger Generate(BigInteger min, BigInteger max, HashSet<BigInteger> iset, Random r)
         {
             int i = 0;
             BigInteger re;
@@ -73,7 +73,7 @@ namespace Lottery
             else return re;
         }
 
-        public void Gen()
+        private void Gen()
         {
             MyMessageBox m = new MyMessageBox();
             Random random = new Random();
