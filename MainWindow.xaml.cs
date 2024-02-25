@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
-using System.Diagnostics;
 using System.Numerics;
 
 namespace Lottery
@@ -31,7 +30,7 @@ namespace Lottery
             Ani.TextBoxBind(quat);
         }
 
-        private BigInteger NextBigInteger(Random random, BigInteger minValue, BigInteger maxValue)
+        public BigInteger NextBigInteger(Random random, BigInteger minValue, BigInteger maxValue)
         {
             if (minValue == maxValue) return minValue;
             BigInteger zeroBasedUpperBound = maxValue - minValue;
