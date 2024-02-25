@@ -31,18 +31,13 @@ namespace Lottery
             Ani.TextBoxBind(quat);
         }
 
-        public BigInteger NextBigInteger(Random random, BigInteger minValue, BigInteger maxValue)
+        private BigInteger NextBigInteger(Random random, BigInteger minValue, BigInteger maxValue)
         {
-            if (minValue > maxValue) throw new ArgumentException();
             if (minValue == maxValue) return minValue;
             BigInteger zeroBasedUpperBound = maxValue - minValue;
             byte[] bytes = zeroBasedUpperBound.ToByteArray();
             byte lastByteMask = 0b11111111;
-            for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1)
-            {
-                if ((bytes[bytes.Length - 1] & mask) == mask) break; // We found it.
-            }
-
+            for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1) { if ((bytes[bytes.Length - 1] & mask) == mask) break; // We found it. }
             while (true)
             {
                 random.NextBytes(bytes);
@@ -121,7 +116,6 @@ namespace Lottery
             }
             catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
             catch (NotImplementedException) { m.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Warning); }
-            catch (Exception ex) when (ex is OverflowException || ex is ArgumentException) { m.Display("Range", "The value of 'Minimum' or 'Maximum' entered is not in the valid range. Valid range: -2147483648~2147483646. You have better not enter the range '-2147483648~2147483647' because it may go wrong.", this, MyMessageBoxStyles.Error); }
         }
     }
 }
