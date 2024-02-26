@@ -30,22 +30,6 @@ namespace Lottery
             Ani.TextBoxBind(quat);
         }
 
-        private BigInteger NextBigInteger(Random random, BigInteger minValue, BigInteger maxValue)
-        {
-            if (minValue == maxValue) return minValue;
-            BigInteger zeroBasedUpperBound = maxValue - minValue;
-            byte[] bytes = zeroBasedUpperBound.ToByteArray();
-            byte lastByteMask = 0b11111111;
-            for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1) { if ((bytes[bytes.Length - 1] & mask) == mask) break; }  // We found it.
-            while (true)
-            {
-                random.NextBytes(bytes);
-                bytes[bytes.Length - 1] &= lastByteMask;
-                BigInteger result = new BigInteger(bytes);
-                if (result <= zeroBasedUpperBound) return result + minValue;
-            }
-        }
-
         /// <summary>
         /// Generates a random <see langword="int"/> value within the specified range, excluding the numbers in the given HashSet.
         /// </summary>
@@ -65,7 +49,18 @@ namespace Lottery
             BigInteger re;
             do
             {
-                re = NextBigInteger(r, min, max);
+                if (min == max) re = min;
+                BigInteger zeroBasedUpperBound = max - min;
+                byte[] bytes = zeroBasedUpperBound.ToByteArray();
+                byte lastByteMask = 0b11111111;
+                for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1) { if ((bytes[bytes.Length - 1] & mask) == mask) break; }  // We found it.
+                while (true)
+                {
+                    random.NextBytes(bytes);
+                    bytes[bytes.Length - 1] &= lastByteMask;
+                    BigInteger result = new BigInteger(bytes);
+                    if (result <= zeroBasedUpperBound) re = result + min;
+                }
                 i++;
             }
             while (iset.Contains(re) && i <= 10000000);
