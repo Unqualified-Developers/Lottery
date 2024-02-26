@@ -54,13 +54,14 @@ namespace Lottery
                 byte[] bytes = zeroBasedUpperBound.ToByteArray();
                 byte lastByteMask = 0b11111111;
                 for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1) { if ((bytes[bytes.Length - 1] & mask) == mask) break; }  // We found it.
-                while (true)
+                do
                 {
                     r.NextBytes(bytes);
                     bytes[bytes.Length - 1] &= lastByteMask;
                     BigInteger result = new BigInteger(bytes);
-                    if (result <= zeroBasedUpperBound) re = result + min;
                 }
+                while (result > zeroBasedUpperBound);
+                re = result + min;
                 i++;
             }
             while (iset.Contains(re) && i <= 10000000);
