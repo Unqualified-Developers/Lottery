@@ -56,7 +56,7 @@ namespace Lottery
                 for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1) { if ((bytes[bytes.Length - 1] & mask) == mask) break; }  // We found it.
                 while (true)
                 {
-                    random.NextBytes(bytes);
+                    r.NextBytes(bytes);
                     bytes[bytes.Length - 1] &= lastByteMask;
                     BigInteger result = new BigInteger(bytes);
                     if (result <= zeroBasedUpperBound) re = result + min;
