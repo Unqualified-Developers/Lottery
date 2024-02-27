@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,13 +80,13 @@ namespace Lottery
                 if (str.Contains('~'))
                 {
                     string[] range = str.Split('~');
-                    if (int.TryParse(range[0], out int min) && int.TryParse(range[1], out int max))
+                    if (BigInteger.TryParse(range[0], out BigInteger min) && BigInteger.TryParse(range[1], out BigInteger max))
                     {
                         if (min > max) (min, max) = (max, min);
-                        for (int i = min; i <= max; i++) { iset.Add(i); }
+                        for (BigInteger i = min; i <= max; i++) { iset.Add(i); }
                     }
                 }
-                else if (int.TryParse(str, out int num)) { iset.Add(num); }
+                else if (BigInteger.TryParse(str, out BigInteger num)) { iset.Add(num); }
             }
             try
             {
