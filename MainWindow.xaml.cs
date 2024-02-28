@@ -49,20 +49,18 @@ namespace Lottery
             BigInteger re;
             do
             {
-                if (min == max) re = min;
                 BigInteger zeroBasedUpperBound = max - min;
                 byte[] bytes = zeroBasedUpperBound.ToByteArray();
                 byte lastByteMask = 0b11111111;
                 for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1) { if ((bytes[bytes.Length - 1] & mask) == mask) break; }  // We found it.
-                BigInteger result;
                 do
                 {
                     r.NextBytes(bytes);
                     bytes[bytes.Length - 1] &= lastByteMask;
-                    result = new BigInteger(bytes);
+                    re = new BigInteger(bytes);
                 }
-                while (result > zeroBasedUpperBound);
-                re = result + min;
+                while (re > zeroBasedUpperBound);
+                re += min;
                 i++;
             }
             while (iset.Contains(re) && i <= 10000000);
