@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 using System.Numerics;
+using System.Security.Cryptography;
 
 namespace Lottery
 {
@@ -12,6 +13,8 @@ namespace Lottery
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -43,7 +46,7 @@ namespace Lottery
         /// <param name="r">The Random object used for generating random numbers.</param>
         /// <returns>A random <see cref="BigInteger"/> value within the specified range, excluding the numbers in the HashSet.</returns>
         /// <exception cref="NotImplementedException">Thrown when the maximum number of iterations is reached without finding a suitable number.</exception>
-        private BigInteger Generate(BigInteger min, BigInteger max, HashSet<BigInteger> iset, Random r)
+        private BigInteger Generate(BigInteger min, BigInteger max, HashSet<BigInteger> iset, RNGCryptoServiceProvider r)
         {
             int i = 0;
             BigInteger re;
@@ -55,7 +58,7 @@ namespace Lottery
                 for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1) { if ((bytes[bytes.Length - 1] & mask) == mask) break; }  // We found it.
                 do
                 {
-                    r.NextBytes(bytes);
+                    r.GetBytes(bytes);
                     bytes[bytes.Length - 1] &= lastByteMask;
                     re = new BigInteger(bytes);
                 }
@@ -71,7 +74,6 @@ namespace Lottery
         private void Gen()
         {
             MyMessageBox m = new MyMessageBox();
-            Random random = new Random();
             HashSet<BigInteger> iset = new HashSet<BigInteger>();
             foreach (string str in ignt.Text.Split(' '))
             {
