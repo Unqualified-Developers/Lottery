@@ -43,7 +43,7 @@ namespace Lottery
         /// <param name="min">The minimum value of the range.</param>
         /// <param name="max">The maximum value of the range.</param>
         /// <param name="iset">The HashSet containing the numbers to be excluded.</param>
-        /// <param name="r">The Random object used for generating random numbers.</param>
+        /// <param name="r">The RNGCryptoServiceProvider object used for generating random numbers.</param>
         /// <returns>A random <see cref="BigInteger"/> value within the specified range, excluding the numbers in the HashSet.</returns>
         /// <exception cref="NotImplementedException">Thrown when the maximum number of iterations is reached without finding a suitable number.</exception>
         private BigInteger Generate(BigInteger min, BigInteger max, HashSet<BigInteger> iset, RNGCryptoServiceProvider r)
