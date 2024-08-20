@@ -1,4 +1,9 @@
 # Lottery
+
+<p align="center">
+  <a href="https://github.com/Unqualified-Developers/Lottery/releases"><img src="https://img.shields.io/github/release/Unqualified-Developers/Lottery" alt="Release version"></a>
+  <a><img src="https://img.shields.io/badge/License-Apache%202.0-blue?color=#4ec820" alt="Apache%202.0"/></a>
+</p>
 **A lottery application which is small but strong.**
 
 ![image](https://github.com/Unqualified-Developers/Lottery/assets/109074663/5121a591-544a-4c34-9524-534935cb341c)
