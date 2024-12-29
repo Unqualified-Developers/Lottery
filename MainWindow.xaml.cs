@@ -5,15 +5,15 @@ using System.Linq;
 using System.Windows.Media;
 using System.Numerics;
 using System.Security.Cryptography;
+using System.IO;
+using System.Text;
 
 namespace Lottery
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
+        private const string DataFilePath = "data.json";
 
         public MainWindow()
         {
@@ -31,21 +31,10 @@ namespace Lottery
             Ani.TextBoxBind(maxt);
             Ani.TextBoxBind(ignt);
             Ani.TextBoxBind(quat);
+
+            LoadData();
         }
 
-        /// <summary>
-        /// Generates a random <see cref="BigInteger"/> value within the specified range, excluding the numbers in the given HashSet.
-        /// </summary>
-        /// <remarks>
-        /// This method generates a random <see cref="BigInteger"/> value within the range specified by min and max, while ensuring that the generated number is not present in the provided HashSet. <br/>
-        /// If a suitable number cannot be found within 10,000,000 iterations, a <see cref="NotImplementedException"/> is thrown.
-        /// </remarks>
-        /// <param name="min">The minimum value of the range.</param>
-        /// <param name="max">The maximum value of the range.</param>
-        /// <param name="iset">The HashSet containing the numbers to be excluded.</param>
-        /// <param name="r">The RNGCryptoServiceProvider object used for generating random numbers.</param>
-        /// <returns>A random <see cref="BigInteger"/> value within the specified range, excluding the numbers in the HashSet.</returns>
-        /// <exception cref="NotImplementedException">Thrown when the maximum number of iterations is reached without finding a suitable number.</exception>
         private BigInteger Generate(BigInteger min, BigInteger max, HashSet<BigInteger> iset, RNGCryptoServiceProvider r)
         {
             int i = 0;
@@ -55,7 +44,8 @@ namespace Lottery
                 BigInteger zeroBasedUpperBound = max - min;
                 byte[] bytes = zeroBasedUpperBound.ToByteArray();
                 byte lastByteMask = 0b11111111;
-                for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1) { if ((bytes[bytes.Length - 1] & mask) == mask) break; }  // We found it.
+                for (byte mask = 0b10000000; mask > 0; mask >>= 1, lastByteMask >>= 1)
+                { if ((bytes[bytes.Length - 1] & mask) == mask) break; }
                 do
                 {
                     r.GetBytes(bytes);
@@ -109,9 +99,65 @@ namespace Lottery
                     m.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, Gen);
                 }
                 else m.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this, Gen);
+
+                SaveData(mini.ToString(), maxi.ToString(), ignt.Text, quai.ToString(), c.IsChecked ?? false);
             }
             catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
             catch (NotImplementedException) { m.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Error); }
+        }
+
+        private void SaveData(string min, string max, string ignore, string quantity, bool checkbox)
+        {
+            Dictionary<string, string> data = new Dictionary<string, string>
+            {
+                { "min", min },
+                { "max", max },
+                { "ignore", ignore },
+                { "quantity", quantity },
+                { "no duplication", checkbox.ToString() }
+            };
+
+            using (StreamWriter writer = new StreamWriter(DataFilePath, false, Encoding.UTF8))
+            {
+                writer.WriteLine("{");
+                int count = data.Count;
+                foreach (KeyValuePair<string, string> kvp in data)
+                {
+                    count--;
+                    writer.Write($"  \"{kvp.Key}\": \"{kvp.Value}\"");
+                    if (count > 0) writer.WriteLine(",");
+                    else writer.WriteLine();
+                }
+                writer.WriteLine("}");
+            }
+        }
+
+        private void LoadData()
+        {
+            if (File.Exists(DataFilePath))
+            {
+                Dictionary<string, string> data = new Dictionary<string, string>();
+                using (StreamReader reader = new StreamReader(DataFilePath, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] parts = line.Split(new[] { ':' }, 2);
+                        if (parts.Length == 2)
+                        {
+                            string key = parts[0].Trim().Trim('"');
+                            string value = parts[1].Trim().Trim('"', ',');
+                            data[key] = value;
+                        }
+                    }
+                }
+
+                mint.Text = data.GetValueOrDefault("min", string.Empty);
+                maxt.Text = data.GetValueOrDefault("max", string.Empty);
+                ignt.Text = data.GetValueOrDefault("ignore", string.Empty);
+                quat.Text = data.GetValueOrDefault("quantity", string.Empty);
+                c.IsChecked = bool.TryParse(data.GetValueOrDefault("no duplication", "false"), out bool isChecked) && isChecked;
+            }
         }
     }
 }
