@@ -147,7 +147,7 @@ namespace Lottery
 
         private void LoadData()
         {
-            if (File.Exists(DataFilePath))
+            try
             {
                 Dictionary<string, string> data = new Dictionary<string, string>();
                 using (StreamReader reader = new StreamReader(DataFilePath, Encoding.UTF8))
@@ -171,6 +171,7 @@ namespace Lottery
                 quat.Text = data.ContainsKey("quantity") ? data["quantity"] : string.Empty;
                 c.IsChecked = data.ContainsKey("no duplication") && bool.TryParse(data["no duplication"], out bool isChecked) && isChecked;
             }
+            catch (Exception) { }
         }
     }
 }
