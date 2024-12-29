@@ -165,11 +165,11 @@ namespace Lottery
                     }
                 }
 
-                mint.Text = data.GetValueOrDefault("min", string.Empty);
-                maxt.Text = data.GetValueOrDefault("max", string.Empty);
-                ignt.Text = data.GetValueOrDefault("ignore", string.Empty);
-                quat.Text = data.GetValueOrDefault("quantity", string.Empty);
-                c.IsChecked = bool.TryParse(data.GetValueOrDefault("no duplication", "false"), out bool isChecked) && isChecked;
+                mint.Text = data.ContainsKey("min") ? data["min"] : string.Empty;
+                maxt.Text = data.ContainsKey("max") ? data["max"] : string.Empty;
+                ignt.Text = data.ContainsKey("ignore") ? data["ignore"] : string.Empty;
+                quat.Text = data.ContainsKey("quantity") ? data["quantity"] : string.Empty;
+                c.IsChecked = data.ContainsKey("no duplication") && bool.TryParse(data["no duplication"], out bool isChecked) && isChecked;
             }
         }
     }
