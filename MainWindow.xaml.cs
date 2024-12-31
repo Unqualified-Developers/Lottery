@@ -10,6 +10,9 @@ using System.Text;
 
 namespace Lottery
 {
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
@@ -102,12 +105,12 @@ namespace Lottery
                 {
                     BigInteger r;
                     BigInteger[] rl = new BigInteger[quai];
-                    bool cc = (bool)c.IsChecked;
+                    bool c_checked = (bool)c.IsChecked;
                     for (int i = 0; i < quai; i++)
                     {
                         r = Generate(mini, maxi, iset, random);
                         rl[i] = r;
-                        if (cc) iset.Add(r);
+                        if (c_checked) iset.Add(r);
                     }
                     m.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, Gen);
                 }
