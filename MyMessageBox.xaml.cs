@@ -66,8 +66,13 @@ namespace Lottery
         {
             InitializeComponent();
             cb.ItemsSource = new int[] { 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29 };
-            cb.SelectedIndex = 4;
-            cb.SelectionChanged += (s, e) => { t.FontSize = int.Parse(cb.SelectedItem.ToString()); };
+            cb.SelectedIndex = (App.MyMessageBoxFontSize - 9) >> 1;
+            cb.SelectionChanged += (s, e) =>
+            {
+                int fontSize = int.Parse(cb.SelectedItem.ToString());
+                App.MyMessageBoxFontSize = fontSize;
+                t.FontSize = fontSize;
+            };
             b.Click += (s, e) => { Close(); };
             c.Click += (s, e) =>
             {
@@ -117,6 +122,7 @@ namespace Lottery
         /// <param name="content">The content of the message box.</param>
         /// <param name="owner">The owner window of the message box.</param>
         /// <param name="style">The style of the message box (Information, Warning, Error).</param>
-        public void Display(string title, string content, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information) { Register(title, content, owner, false, style); }
+        public void Display(string title, string content, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
+        { Register(title, content, owner, false, style); }
     }
 }
