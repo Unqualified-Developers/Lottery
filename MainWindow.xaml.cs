@@ -122,7 +122,7 @@ namespace Lottery
             catch (NotImplementedException) { m.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Error); }
         }
 
-        private void SaveData(string min, string max, string ignore, string quantity, bool checkbox)
+        private void SaveData(string min, string max, string ignore, string quantity, bool checkbox, int fontSize)
         {
             Dictionary<string, string> data = new Dictionary<string, string>
             {
@@ -130,7 +130,8 @@ namespace Lottery
                 { "max", max },
                 { "ignore", ignore },
                 { "quantity", quantity },
-                { "no duplication", checkbox.ToString() }
+                { "no duplication", checkbox.ToString() },
+                { "mymessagebox fontsize", fontSize.ToString() }
             };
 
             using (StreamWriter writer = new StreamWriter(DataFilePath, false, Encoding.UTF8))
@@ -173,6 +174,7 @@ namespace Lottery
                 ignt.Text = data.ContainsKey("ignore") ? data["ignore"] : string.Empty;
                 quat.Text = data.ContainsKey("quantity") ? data["quantity"] : string.Empty;
                 c.IsChecked = data.ContainsKey("no duplication") && bool.TryParse(data["no duplication"], out bool isChecked) && isChecked;
+                App.MyMessageBoxFontSize = data.ContainsKey("mymessagebox fontsize") ? int.Parse(data["mymessagebox fontsize"]) : 17;
             }
             catch (Exception) { }
         }
