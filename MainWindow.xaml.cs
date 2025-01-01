@@ -116,7 +116,7 @@ namespace Lottery
                 }
                 else m.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this, Gen);
 
-                SaveData(mini.ToString(), maxi.ToString(), ignt.Text, quai.ToString(), c.IsChecked ?? false);
+                SaveData(mini.ToString(), maxi.ToString(), ignt.Text, quai.ToString(), c.IsChecked ?? false, App.MyMessageBoxFontSize);
             }
             catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
             catch (NotImplementedException) { m.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Error); }
