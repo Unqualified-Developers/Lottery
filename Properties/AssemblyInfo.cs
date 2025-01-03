@@ -3,9 +3,9 @@ using System.Runtime.InteropServices;
 using System.Windows;
 
 [assembly: AssemblyTitle("Lottery")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A lottery application which is small but strong.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Unqualified Developers")]
 [assembly: AssemblyProduct("Lottery")]
 [assembly: AssemblyCopyright("Copyright ©  2024-2025")]
 [assembly: AssemblyTrademark("")]
