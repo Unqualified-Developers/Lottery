@@ -1,9 +1,15 @@
 # Lottery
+
+<p align="center">
+  <a href="https://github.com/Unqualified-Developers/Lottery/releases"><img src="https://img.shields.io/github/release/Unqualified-Developers/Lottery" alt="Release version"></a>
+  <a><img src="https://img.shields.io/badge/License-Apache%202.0-blue?color=#4ec820" alt="Apache%202.0"/></a>
+</p>
+
 **A lottery application which is small but strong.**
 
 ![image](https://github.com/Unqualified-Developers/Lottery/assets/109074663/5121a591-544a-4c34-9524-534935cb341c)
 
-It can generate random numbers in the range you entered. You can set the `quantity` and even the numbers you want to `ignore`.
+It can generate random numbers in the range you entered. You can set the `quantity` and even the numbers you want to `ignore`. If you want to `ignore more than one number`, use a `whitespace` (` `) between them.
 
 ![image](https://github.com/Unqualified-Developers/Lottery/assets/109074663/5f5b8c43-a9c7-4316-b11a-aff92c3f8de9)
 
