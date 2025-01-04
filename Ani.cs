@@ -67,16 +67,8 @@ namespace Lottery
         {
             b.Background = mid;
             b.Foreground = Brushes.White;
-            b.MouseEnter += (s, e) => 
-            { 
-                ScaleAniShow(b, 1, 1.05); 
-                AnimateColor(b, mid, start); 
-            };
-            b.MouseLeave += (s, e) => 
-            { 
-                ScaleAniShow(b, 1.05, 1); 
-                AnimateColor(b, start, mid); 
-            };
+            b.MouseEnter += (s, e) => { AnimateColor(b, mid, start); };
+            b.MouseLeave += (s, e) => { AnimateColor(b, start, mid); };
             b.PreviewMouseDown += (s, e) => 
             { 
                 ScaleAniShow(b, 1.05, 0.95); 
