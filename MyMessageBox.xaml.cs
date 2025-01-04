@@ -19,12 +19,24 @@ namespace Lottery
     
     public partial class MyMessageBox : Window
     {
+        private string _content;
+        
         private readonly Button conb = new Button
         {
             Margin = new Thickness(3),
             Content = "Continue",
             Style = (Style)Application.Current.FindResource("ButtonStyle")
         };
+
+        public string Content
+        {
+            get { return _content; }
+            set 
+            {
+                _content = value;
+                t.Text = value.Length < 99999 ? value : "The text is too long to show.\nCopy or save if you want to see it.";
+            }
+        }
 
         private void Set(Brush start, Brush mid, Brush end)
         {
@@ -58,7 +70,7 @@ namespace Lottery
             }
             Title = title;
             Owner = owner;
-            t.Text = content;
+            Content = content;
             ShowDialog();
         }
 
@@ -76,7 +88,7 @@ namespace Lottery
             b.Click += (s, e) => { Close(); };
             c.Click += (s, e) =>
             {
-                try { Clipboard.SetText(t.Text); }
+                try { Clipboard.SetText(Content); }
                 catch
                 {
                     MyMessageBox m = new MyMessageBox { Width = 250, Height = 200 };
@@ -87,7 +99,7 @@ namespace Lottery
             sb.Click += (s, e) =>
             {
                 SaveFileDialog dialog = new SaveFileDialog { Title = "Save File", Filter = "Text Files (*.txt)|*.txt" };
-                if ((bool)dialog.ShowDialog()) File.WriteAllText(dialog.FileName, t.Text);
+                if ((bool)dialog.ShowDialog()) File.WriteAllText(dialog.FileName, Content);
             };
         }
 
