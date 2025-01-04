@@ -112,4 +112,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Executable File (${{ matrix.configuration }})
-        path: ${{ env.Wap_Project_Directory }}\bin\${{ matrix.configuration }}
+        path: ${{ env.Wap_Project_Directory }}\bin\${{ matrix.configuration }}\Lottery.exe
