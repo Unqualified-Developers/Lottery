@@ -39,24 +39,6 @@ namespace Lottery
         }
 
         /// <summary>
-        /// Apply a Color animation to the specified <see cref="Control"/>, animating its size from one value to another..
-        /// </summary>
-        /// <param name="button">The button to animate.</param>
-        /// <param name="fromColor">The starting color of the animation.</param>
-        /// <param name="toColor">The target color of the animation.</param>
-        private static void AnimateColor(Control control, Brush fromColor, Brush toColor)
-        {
-            ColorAnimation colorAnimation = new ColorAnimation()
-            {
-                From = ((SolidColorBrush)fromColor).Color,
-                To = ((SolidColorBrush)toColor).Color,
-                Duration = new Duration(TimeSpan.FromMilliseconds(300))
-            };
-            control.Background = new SolidColorBrush(((SolidColorBrush)fromColor).Color);
-            control.Background.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
-        }
-
-        /// <summary>
         /// Binds a button with color and scaling animations for different mouse events.
         /// </summary>
         /// <param name="b">The button to bind the animations to.</param>
@@ -67,18 +49,8 @@ namespace Lottery
         {
             b.Background = mid;
             b.Foreground = Brushes.White;
-            b.MouseEnter += (s, e) => { AnimateColor(b, mid, start); };
-            b.MouseLeave += (s, e) => { AnimateColor(b, start, mid); };
-            b.PreviewMouseDown += (s, e) => 
-            { 
-                ScaleAniShow(b, 1.05, 0.95); 
-                AnimateColor(b, start, end); 
-            };
-            b.PreviewMouseUp += (s, e) => 
-            { 
-                ScaleAniShow(b, 0.95, 1.05); 
-                AnimateColor(b, end, start); 
-            };
+            b.PreviewMouseDown += (s, e) => { ScaleAniShow(b, 1, 0.95); };
+            b.PreviewMouseUp += (s, e) => { ScaleAniShow(b, 0.95, 1); };
         }
 
         /// <summary>
