@@ -71,12 +71,12 @@ namespace Lottery
             b.MouseLeave += (s, e) => { AnimateColor(b, start, mid); };
             b.PreviewMouseDown += (s, e) => 
             { 
-                ScaleAniShow(b, 1.05, 0.95); 
+                ScaleAniShow(b, 1, 0.95); 
                 AnimateColor(b, start, end); 
             };
             b.PreviewMouseUp += (s, e) => 
             { 
-                ScaleAniShow(b, 0.95, 1.05); 
+                ScaleAniShow(b, 0.95, 1); 
                 AnimateColor(b, end, start); 
             };
         }
