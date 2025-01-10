@@ -50,7 +50,7 @@ namespace Lottery
             {
                 From = ((SolidColorBrush)fromColor).Color,
                 To = ((SolidColorBrush)toColor).Color,
-                Duration = new Duration(TimeSpan.FromMilliseconds(300))
+                Duration = new Duration(TimeSpan.FromMilliseconds(250))
             };
             control.Background = new SolidColorBrush(((SolidColorBrush)fromColor).Color);
             control.Background.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
