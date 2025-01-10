@@ -82,6 +82,7 @@ namespace Lottery
             {
                 App.MyMessageBoxFontSize = 9;
             }
+            t.FontSize = App.MyMessageBoxFontSize;
             cb.SelectedIndex = (App.MyMessageBoxFontSize - 9) >> 1;
             cb.SelectionChanged += (s, e) =>
             {
