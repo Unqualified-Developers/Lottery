@@ -6,5 +6,5 @@ namespace Lottery
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
-    { public static int MyMessageBoxFontSize { get; set; } }
+    { public static int MyMessageBoxFontSize { get; set; } = 17; }
 }
