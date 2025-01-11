@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using System;
 using System.IO;
 using System.Windows;
@@ -19,12 +19,24 @@ namespace Lottery
     
     public partial class MyMessageBox : Window
     {
+        private string _messageContent;
+        
         private readonly Button conb = new Button
         {
             Margin = new Thickness(3),
             Content = "Continue",
             Style = (Style)Application.Current.FindResource("ButtonStyle")
         };
+
+        public string MessageContent
+        {
+            get { return _messageContent; }
+            set 
+            {
+                _messageContent = value;
+                t.Text = value.Length < 99999 ? value : "The text is too long to show.\nCopy or save if you want to see it.";
+            }
+        }
 
         private void Set(Brush start, Brush mid, Brush end)
         {
@@ -39,7 +51,7 @@ namespace Lottery
             Ani.ButtonBind(conb, start, mid, end);
         }
 
-        private void Register(string title, string content, Window owner, bool c, MyMessageBoxStyles style)
+        private void Register(string title, string messageContent, Window owner, bool c, MyMessageBoxStyles style)
         {
             switch (style)
             {
@@ -58,7 +70,7 @@ namespace Lottery
             }
             Title = title;
             Owner = owner;
-            t.Text = content;
+            MessageContent = messageContent;
             ShowDialog();
         }
 
@@ -66,12 +78,18 @@ namespace Lottery
         {
             InitializeComponent();
             cb.ItemsSource = new int[] { 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29 };
-            cb.SelectedIndex = 4;
-            cb.SelectionChanged += (s, e) => { t.FontSize = int.Parse(cb.SelectedItem.ToString()); };
+            t.FontSize = App.MyMessageBoxFontSize;
+            cb.SelectedIndex = (App.MyMessageBoxFontSize - 9) >> 1;
+            cb.SelectionChanged += (s, e) =>
+            {
+                int fontSize = int.Parse(cb.SelectedItem.ToString());
+                App.MyMessageBoxFontSize = fontSize;
+                t.FontSize = fontSize;
+            };
             b.Click += (s, e) => { Close(); };
             c.Click += (s, e) =>
             {
-                try { Clipboard.SetText(t.Text); }
+                try { Clipboard.SetText(MessageContent); }
                 catch
                 {
                     MyMessageBox m = new MyMessageBox { Width = 250, Height = 200 };
@@ -82,7 +100,7 @@ namespace Lottery
             sb.Click += (s, e) =>
             {
                 SaveFileDialog dialog = new SaveFileDialog { Title = "Save File", Filter = "Text Files (*.txt)|*.txt" };
-                if ((bool)dialog.ShowDialog()) File.WriteAllText(dialog.FileName, t.Text);
+                if ((bool)dialog.ShowDialog()) File.WriteAllText(dialog.FileName, MessageContent);
             };
         }
 
@@ -90,11 +108,11 @@ namespace Lottery
         /// Display a message box with a "Continue" button that executes the specified action when clicked.
         /// </summary>
         /// <param name="title">The title of the message box.</param>
-        /// <param name="content">The content of the message box.</param>
+        /// <param name="messageContent">The content of the message box.</param>
         /// <param name="owner">The owner window of the message box.</param>
         /// <param name="action">The action to be executed when the "Continue" button is clicked.</param>
         /// <param name="style">The style of the message box (Information, Warning, Error).</param>
-        public void Display(string title, string content, Window owner, Action action, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
+        public void Display(string title, string messageContent, Window owner, Action action, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
         {
             conb.Click += (s, e) =>
             {
@@ -107,16 +125,17 @@ namespace Lottery
             Grid.SetColumnSpan(conb, 2);
             g.Children.Add(conb);
             MinHeight = 236;
-            Register(title, content, owner, true, style);
+            Register(title, messageContent, owner, true, style);
         }
 
         /// <summary>
         /// Display a message box without a "Continue" button.
         /// </summary>
         /// <param name="title">The title of the message box.</param>
-        /// <param name="content">The content of the message box.</param>
+        /// <param name="messageContent">The content of the message box.</param>
         /// <param name="owner">The owner window of the message box.</param>
         /// <param name="style">The style of the message box (Information, Warning, Error).</param>
-        public void Display(string title, string content, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information) { Register(title, content, owner, false, style); }
+        public void Display(string title, string messageContent, Window owner, MyMessageBoxStyles style = MyMessageBoxStyles.Information)
+        { Register(title, messageContent, owner, false, style); }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -38,16 +38,53 @@ namespace Lottery
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimation);
         }
 
+        /// <summary>
+        /// Apply a Color animation to the specified <see cref="Control"/>, animating its size from one value to another..
+        /// </summary>
+        /// <param name="button">The button to animate.</param>
+        /// <param name="fromColor">The starting color of the animation.</param>
+        /// <param name="toColor">The target color of the animation.</param>
+        private static void AnimateColor(Control control, Brush fromColor, Brush toColor)
+        {
+            ColorAnimation colorAnimation = new ColorAnimation()
+            {
+                From = ((SolidColorBrush)fromColor).Color,
+                To = ((SolidColorBrush)toColor).Color,
+                Duration = new Duration(TimeSpan.FromMilliseconds(250))
+            };
+            control.Background = new SolidColorBrush(((SolidColorBrush)fromColor).Color);
+            control.Background.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
+        }
+
+        /// <summary>
+        /// Binds a button with color and scaling animations for different mouse events.
+        /// </summary>
+        /// <param name="b">The button to bind the animations to.</param>
+        /// <param name="start">The brush color for the mouse enter state.</param>
+        /// <param name="mid">The brush color for the default state.</param>
+        /// <param name="end">The brush color for the mouse down state.</param>
         public static void ButtonBind(Button b, Brush start, Brush mid, Brush end)
         {
             b.Background = mid;
             b.Foreground = Brushes.White;
-            b.MouseEnter += (s, e) => { ScaleAniShow(b, 1, 1.05); b.Background = start; };
-            b.MouseLeave += (s, e) => { ScaleAniShow(b, 1.05, 1); b.Background = mid; };
-            b.PreviewMouseDown += (s, e) => { ScaleAniShow(b, 1.05, 0.95); b.Background = end; };
-            b.PreviewMouseUp += (s, e) => { ScaleAniShow(b, 0.95, 1.05); b.Background = start; };
+            b.MouseEnter += (s, e) => { AnimateColor(b, mid, start); };
+            b.MouseLeave += (s, e) => { AnimateColor(b, start, mid); };
+            b.PreviewMouseDown += (s, e) => 
+            { 
+                ScaleAniShow(b, 1, 0.95); 
+                AnimateColor(b, start, end); 
+            };
+            b.PreviewMouseUp += (s, e) => 
+            { 
+                ScaleAniShow(b, 0.95, 1); 
+                AnimateColor(b, end, start); 
+            };
         }
 
+        /// <summary>
+        /// Binds a text box with scaling animations for mouse events.
+        /// </summary>
+        /// <param name="t">The text box to bind the animations to.</param>
         public static void TextBoxBind(TextBox t)
         {
             t.PreviewMouseDown += (s, e) => { ScaleAniShow(t, 1, 0.95); };
