@@ -5,8 +5,6 @@ using System.Linq;
 using System.Windows.Media;
 using System.Numerics;
 using System.Security.Cryptography;
-using System.IO;
-using System.Text;
 
 namespace Lottery
 {
@@ -16,18 +14,19 @@ namespace Lottery
     public partial class MainWindow : Window
     {
         private readonly RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
-        private const string DataFilePath = "data.json";
 
         public MainWindow()
         {
             InitializeComponent();
+
             Closed += (s, e) => { Environment.Exit(0); };
+
             Ani.ButtonBind(genb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
             Ani.ButtonBind(scrb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
-            c.MouseEnter += (s, e) => { Ani.ScaleAniShow(c, 1, 1.05); };
-            c.MouseLeave += (s, e) => { Ani.ScaleAniShow(c, 1.05, 1); };
-            c.PreviewMouseDown += (s, e) => { Ani.ScaleAniShow(c, 1.05, 0.95); };
-            c.PreviewMouseUp += (s, e) => { Ani.ScaleAniShow(c, 0.95, 1.05); };
+            ndc.MouseEnter += (s, e) => { Ani.AnimateScale(ndc, 1, 1.05); };
+            ndc.MouseLeave += (s, e) => { Ani.AnimateScale(ndc, 1.05, 1); };
+            ndc.PreviewMouseDown += (s, e) => { Ani.AnimateScale(ndc, 1.05, 0.95); };
+            ndc.PreviewMouseUp += (s, e) => { Ani.AnimateScale(ndc, 0.95, 1.05); };
             scrb.Click += (s, e) => { System.Diagnostics.Process.Start("https://github.com/Unqualified-Developers/Lottery"); };
             genb.Click += (s, e) => { Gen(); };
             Ani.TextBoxBind(mint);
@@ -35,7 +34,7 @@ namespace Lottery
             Ani.TextBoxBind(ignt);
             Ani.TextBoxBind(quat);
 
-            LoadData();
+            (mint.Text, maxt.Text, ignt.Text, quat.Text, ndc.IsChecked) = Storage.Load();
         }
         
         /// <summary>
@@ -105,78 +104,21 @@ namespace Lottery
                 {
                     BigInteger r;
                     BigInteger[] rl = new BigInteger[quai];
-                    bool c_checked = (bool)c.IsChecked;
+                    bool ndc_checked = (bool)ndc.IsChecked;
                     for (int i = 0; i < quai; i++)
                     {
                         r = Generate(mini, maxi, iset, random);
                         rl[i] = r;
-                        if (c_checked) iset.Add(r);
+                        if (ndc_checked) iset.Add(r);
                     }
                     m.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, Gen);
                 }
                 else m.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this, Gen);
 
-                SaveData(mini.ToString(), maxi.ToString(), ignt.Text, quai.ToString(), c.IsChecked ?? false, App.MyMessageBoxFontSize);
+                Storage.Save(mini.ToString(), maxi.ToString(), ignt.Text, quai.ToString(), ndc.IsChecked ?? false, App.MyMessageBoxFontSize);
             }
             catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
             catch (NotImplementedException) { m.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Error); }
-        }
-
-        private void SaveData(string min, string max, string ignore, string quantity, bool checkbox, int fontSize)
-        {
-            Dictionary<string, string> data = new Dictionary<string, string>
-            {
-                { "min", min },
-                { "max", max },
-                { "ignore", ignore },
-                { "quantity", quantity },
-                { "no duplication", checkbox.ToString() },
-                { "mymessagebox fontsize", fontSize.ToString() }
-            };
-
-            using (StreamWriter writer = new StreamWriter(DataFilePath, false, Encoding.UTF8))
-            {
-                writer.WriteLine("{");
-                int count = data.Count;
-                foreach (KeyValuePair<string, string> kvp in data)
-                {
-                    count--;
-                    writer.Write($"  \"{kvp.Key}\": \"{kvp.Value}\"");
-                    if (count > 0) writer.WriteLine(",");
-                    else writer.WriteLine();
-                }
-                writer.WriteLine("}");
-            }
-        }
-
-        private void LoadData()
-        {
-            try
-            {
-                Dictionary<string, string> data = new Dictionary<string, string>();
-                using (StreamReader reader = new StreamReader(DataFilePath, Encoding.UTF8))
-                {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        string[] parts = line.Split(new[] { ':' }, 2);
-                        if (parts.Length == 2)
-                        {
-                            string key = parts[0].Trim().Trim('"');
-                            string value = parts[1].Trim().Trim('"', ',');
-                            data[key] = value;
-                        }
-                    }
-                }
-
-                mint.Text = data.ContainsKey("min") ? data["min"] : string.Empty;
-                maxt.Text = data.ContainsKey("max") ? data["max"] : string.Empty;
-                ignt.Text = data.ContainsKey("ignore") ? data["ignore"] : string.Empty;
-                quat.Text = data.ContainsKey("quantity") ? data["quantity"] : string.Empty;
-                c.IsChecked = data.ContainsKey("no duplication") && bool.TryParse(data["no duplication"], out bool isChecked) && isChecked;
-                if (data.ContainsKey("mymessagebox fontsize")) App.MyMessageBoxFontSize = int.Parse(data["mymessagebox fontsize"]);
-            }
-            catch (Exception) { }
         }
     }
 }
