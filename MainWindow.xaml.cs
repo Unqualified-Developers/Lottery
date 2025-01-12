@@ -174,7 +174,7 @@ namespace Lottery
                 ignt.Text = data.ContainsKey("ignore") ? data["ignore"] : string.Empty;
                 quat.Text = data.ContainsKey("quantity") ? data["quantity"] : string.Empty;
                 c.IsChecked = data.ContainsKey("no duplication") && bool.TryParse(data["no duplication"], out bool isChecked) && isChecked;
-                App.MyMessageBoxFontSize = data.ContainsKey("mymessagebox fontsize") ? int.Parse(data["mymessagebox fontsize"]) : 17;
+                if (data.ContainsKey("mymessagebox fontsize")) App.MyMessageBoxFontSize = int.Parse(data["mymessagebox fontsize"]);
             }
             catch (Exception) { }
         }
