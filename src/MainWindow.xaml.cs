@@ -28,7 +28,6 @@ namespace Lottery
             ndc.PreviewMouseDown += (s, e) => { Ani.AnimateScale(ndc, 1.05, 0.95); };
             ndc.PreviewMouseUp += (s, e) => { Ani.AnimateScale(ndc, 0.95, 1.05); };
             scrb.Click += (s, e) => { System.Diagnostics.Process.Start("https://github.com/Unqualified-Developers/Lottery"); };
-            genb.Click += (s, e) => { Gen(); };
             Ani.TextBoxBind(mint);
             Ani.TextBoxBind(maxt);
             Ani.TextBoxBind(ignt);
@@ -76,7 +75,7 @@ namespace Lottery
             else return re;
         }
 
-        private void Gen()
+        private void GenbClick()
         {
             MyMessageBox m = new MyMessageBox();
             HashSet<BigInteger> iset = new HashSet<BigInteger>();
@@ -111,10 +110,9 @@ namespace Lottery
                         rl[i] = r;
                         if (ndc_checked) iset.Add(r);
                     }
-                    m.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, Gen);
+                    m.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, GenbClick);
                 }
-                else m.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this, Gen);
-
+                else m.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this, GenbClick);
                 Storage.Save(mini.ToString(), maxi.ToString(), ignt.Text, quai.ToString(), ndc.IsChecked ?? false, App.MyMessageBoxFontSize);
             }
             catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
