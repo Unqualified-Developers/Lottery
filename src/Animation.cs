@@ -6,7 +6,7 @@ using System.Windows.Media.Animation;
 
 namespace Lottery
 {
-    internal class Ani
+    internal class Animation
     {
         /// <summary>
         /// Apply a scaling animation to the specified <see cref="UIElement"/>, animating its size from one value to another.
