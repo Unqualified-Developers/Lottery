@@ -20,7 +20,6 @@ namespace Lottery
             InitializeComponent();
 
             Closed += (s, e) => { Environment.Exit(0); };
-
             Ani.ButtonBind(genb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
             Ani.ButtonBind(scrb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
             ndc.MouseEnter += (s, e) => { Ani.AnimateScale(ndc, 1, 1.05); };
@@ -28,11 +27,11 @@ namespace Lottery
             ndc.PreviewMouseDown += (s, e) => { Ani.AnimateScale(ndc, 1.05, 0.95); };
             ndc.PreviewMouseUp += (s, e) => { Ani.AnimateScale(ndc, 0.95, 1.05); };
             scrb.Click += (s, e) => { System.Diagnostics.Process.Start("https://github.com/Unqualified-Developers/Lottery"); };
+            genb.Click += (s, e) => { GenbClick(); };
             Ani.TextBoxBind(mint);
             Ani.TextBoxBind(maxt);
             Ani.TextBoxBind(ignt);
             Ani.TextBoxBind(quat);
-
             (mint.Text, maxt.Text, ignt.Text, quat.Text, ndc.IsChecked) = Storage.Load();
         }
         
