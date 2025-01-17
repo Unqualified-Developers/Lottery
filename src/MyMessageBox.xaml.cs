@@ -20,7 +20,6 @@ namespace Lottery
     public partial class MyMessageBox : Window
     {
         private string _messageContent;
-        
         private readonly Button conb = new Button
         {
             Margin = new Thickness(3),
@@ -40,15 +39,15 @@ namespace Lottery
 
         private void Set(Brush start, Brush mid, Brush end)
         {
-            Ani.ButtonBind(b, start, mid, end);
-            Ani.ButtonBind(c, start, mid, end);
-            Ani.ButtonBind(sb, start, mid, end);
+            Animation.ButtonBind(b, start, mid, end);
+            Animation.ButtonBind(c, start, mid, end);
+            Animation.ButtonBind(sb, start, mid, end);
         }
 
         private void SetMore(Brush start, Brush mid, Brush end)
         {
             Set(start, mid, end);
-            Ani.ButtonBind(conb, start, mid, end);
+            Animation.ButtonBind(conb, start, mid, end);
         }
 
         private void Register(string title, string messageContent, Window owner, bool c, MyMessageBoxStyles style)
