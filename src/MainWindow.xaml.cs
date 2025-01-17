@@ -18,7 +18,6 @@ namespace Lottery
         public MainWindow()
         {
             InitializeComponent();
-
             Closed += (s, e) => { Environment.Exit(0); };
             Animation.ButtonBind(genb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
             Animation.ButtonBind(scrb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
@@ -34,7 +33,7 @@ namespace Lottery
             Animation.TextBoxBind(quat);
             (mint.Text, maxt.Text, ignt.Text, quat.Text, ndc.IsChecked) = Storage.Load();
         }
-        
+
         /// <summary>
         /// Generates a random <see cref="BigInteger"/> value within the specified range, excluding the numbers in the given HashSet.
         /// </summary>
