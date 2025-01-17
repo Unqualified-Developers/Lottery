@@ -71,8 +71,8 @@ namespace Lottery
                 re += min;
                 i++;
             }
-            while (iset.Contains(re) && i <= 10000000);
-            if (i == 10000001) throw new NotImplementedException();
+            while (iset.Contains(re) && i <= 1000000);
+            if (i == 1000001) throw new NotImplementedException();
             else return re;
         }
 
