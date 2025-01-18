@@ -60,7 +60,7 @@ namespace Lottery
                 data.ContainsKey("quantity") ? data["quantity"] : string.Empty,
                 data.ContainsKey("no duplication") && bool.TryParse(data["no duplication"], out bool isChecked) && isChecked);
             }
-            catch (Exception) { return ("", "", "", "", false); }
+            catch (Exception) { return (string.Empty, string.Empty, string.Empty, string.Empty, false); }
         }
     }
 }
