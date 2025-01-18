@@ -82,7 +82,7 @@ namespace Lottery
                 if (str.Contains('~'))
                 {
                     string[] range = str.Split('~');
-                    if (BigInteger.TryParse(range[0], out BigInteger min) && BigInteger.TryParse(range[1], out BigInteger max))
+                    if (BigInteger.TryParse(range.FirstOrDefault(), out BigInteger min) && BigInteger.TryParse(range.Last(), out BigInteger max))
                     {
                         if (min > max) (min, max) = (max, min);
                         for (BigInteger i = min; i <= max; i++) { iset.Add(i); }
