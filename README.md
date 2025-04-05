@@ -21,11 +21,4 @@ However, sometimes you can still use it `without` the required environment due t
 ## Build & Run
 **We advise you to use `Visual Studio` to build the project.**
 
-If you only want to `use` it, please go to the [Release Page](https://github.com/Unqualified-Developers/Lottery/releases) or use the [Direct Download Links](https://github.com/Unqualified-Developers/Lottery?tab=readme-ov-file#downloads) below. The latest release is `v1.3.0.1`.
-
-### Downloads
-
-[Executable Program (AMD64)](https://github.com/Unqualified-Developers/Lottery/releases/download/v1.3.0.1/Lottery-amd64.exe) | [Executable Program (Any CPU)](https://github.com/Unqualified-Developers/Lottery/releases/download/v1.3.0.1/Lottery.exe) | [Executable Program (ARM64)](https://github.com/Unqualified-Developers/Lottery/releases/download/v1.3.0.1/Lottery-arm64.exe)
-
-[Source code (zip)](https://github.com/Unqualified-Developers/Lottery/archive/refs/tags/v1.3.0.1.zip) | [Source code
-(tar.gz)](https://github.com/Unqualified-Developers/Lottery/archive/refs/tags/v1.3.0.1.tar.gz)
+If you only want to `use` it, please go to the [Release Page](https://github.com/Unqualified-Developers/Lottery/releases) .
