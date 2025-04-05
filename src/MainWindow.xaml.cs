@@ -18,25 +18,22 @@ namespace Lottery
         public MainWindow()
         {
             InitializeComponent();
-
             Closed += (s, e) => { Environment.Exit(0); };
-
-            Ani.ButtonBind(genb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
-            Ani.ButtonBind(scrb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
-            ndc.MouseEnter += (s, e) => { Ani.AnimateScale(ndc, 1, 1.05); };
-            ndc.MouseLeave += (s, e) => { Ani.AnimateScale(ndc, 1.05, 1); };
-            ndc.PreviewMouseDown += (s, e) => { Ani.AnimateScale(ndc, 1.05, 0.95); };
-            ndc.PreviewMouseUp += (s, e) => { Ani.AnimateScale(ndc, 0.95, 1.05); };
+            Animation.ButtonBind(genb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
+            Animation.ButtonBind(scrb, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.CornflowerBlue);
+            ndc.MouseEnter += (s, e) => { Animation.Scale(ndc, 1, 1.05); };
+            ndc.MouseLeave += (s, e) => { Animation.Scale(ndc, 1.05, 1); };
+            ndc.PreviewMouseDown += (s, e) => { Animation.Scale(ndc, 1.05, 0.95); };
+            ndc.PreviewMouseUp += (s, e) => { Animation.Scale(ndc, 0.95, 1.05); };
             scrb.Click += (s, e) => { System.Diagnostics.Process.Start("https://github.com/Unqualified-Developers/Lottery"); };
-            genb.Click += (s, e) => { Gen(); };
-            Ani.TextBoxBind(mint);
-            Ani.TextBoxBind(maxt);
-            Ani.TextBoxBind(ignt);
-            Ani.TextBoxBind(quat);
-
+            genb.Click += (s, e) => { GenbClick(); };
+            Animation.TextBoxBind(mint);
+            Animation.TextBoxBind(maxt);
+            Animation.TextBoxBind(ignt);
+            Animation.TextBoxBind(quat);
             (mint.Text, maxt.Text, ignt.Text, quat.Text, ndc.IsChecked) = Storage.Load();
         }
-        
+
         /// <summary>
         /// Generates a random <see cref="BigInteger"/> value within the specified range, excluding the numbers in the given HashSet.
         /// </summary>
@@ -71,12 +68,12 @@ namespace Lottery
                 re += min;
                 i++;
             }
-            while (iset.Contains(re) && i <= 10000000);
-            if (i == 10000001) throw new NotImplementedException();
+            while (iset.Contains(re) && i <= 1000000);
+            if (i == 1000001) throw new NotImplementedException();
             else return re;
         }
 
-        private void Gen()
+        private void GenbClick()
         {
             MyMessageBox m = new MyMessageBox();
             HashSet<BigInteger> iset = new HashSet<BigInteger>();
@@ -85,7 +82,7 @@ namespace Lottery
                 if (str.Contains('~'))
                 {
                     string[] range = str.Split('~');
-                    if (BigInteger.TryParse(range[0], out BigInteger min) && BigInteger.TryParse(range[1], out BigInteger max))
+                    if (BigInteger.TryParse(range.FirstOrDefault(), out BigInteger min) && BigInteger.TryParse(range.Last(), out BigInteger max))
                     {
                         if (min > max) (min, max) = (max, min);
                         for (BigInteger i = min; i <= max; i++) { iset.Add(i); }
@@ -111,10 +108,9 @@ namespace Lottery
                         rl[i] = r;
                         if (ndc_checked) iset.Add(r);
                     }
-                    m.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, Gen);
+                    m.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, GenbClick);
                 }
-                else m.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this, Gen);
-
+                else m.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this, GenbClick);
                 Storage.Save(mini.ToString(), maxi.ToString(), ignt.Text, quai.ToString(), ndc.IsChecked ?? false, App.MyMessageBoxFontSize);
             }
             catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
