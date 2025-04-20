@@ -31,7 +31,8 @@ namespace Lottery
             Animation.TextBoxBind(maxt);
             Animation.TextBoxBind(ignt);
             Animation.TextBoxBind(quat);
-            (mint.Text, maxt.Text, ignt.Text, quat.Text, ndc.IsChecked) = Storage.Load();
+            Animation.TextBoxBind(splt);
+            (mint.Text, maxt.Text, ignt.Text, quat.Text, splt.Text, ndc.IsChecked) = Storage.Load();
         }
 
         /// <summary>
@@ -96,22 +97,19 @@ namespace Lottery
                 BigInteger maxi = BigInteger.Parse(maxt.Text);
                 if (mini > maxi) (mini, maxi) = (maxi, mini);
                 int quai = int.TryParse(quat.Text, out int _quai) ? _quai : 1;
+                string spls = splt.Text != "" ? splt.Text : ", ";
                 if (quai < 1 || quai > 99999) m.Display("Range", "The value of 'Quality' you entered is not in the valid range. Valid range: 1~99999.", this, MyMessageBoxStyles.Error);
-                else if (quai != 1)
+                BigInteger r;
+                BigInteger[] rl = new BigInteger[quai];
+                bool ndc_checked = (bool)ndc.IsChecked;
+                for (int i = 0; i < quai; i++)
                 {
-                    BigInteger r;
-                    BigInteger[] rl = new BigInteger[quai];
-                    bool ndc_checked = (bool)ndc.IsChecked;
-                    for (int i = 0; i < quai; i++)
-                    {
-                        r = Generate(mini, maxi, iset, random);
-                        rl[i] = r;
-                        if (ndc_checked) iset.Add(r);
-                    }
-                    m.Display("Generate", $"Numbers: {string.Join(", ", rl)}.", this, GenbClick);
+                    r = Generate(mini, maxi, iset, random);
+                    rl[i] = r;
+                    if (ndc_checked) iset.Add(r);
                 }
-                else m.Display("Generate", $"Number {Generate(mini, maxi, iset, random)}.", this, GenbClick);
-                Storage.Save(mini.ToString(), maxi.ToString(), ignt.Text, quai.ToString(), ndc.IsChecked ?? false, App.MyMessageBoxFontSize);
+                m.Display("Generate", string.Join(spls, rl), this, GenbClick);
+                Storage.Save(mini.ToString(), maxi.ToString(), ignt.Text, quai.ToString(), spls, ndc.IsChecked ?? false, App.MyMessageBoxFontSize);
             }
             catch (FormatException) { m.Display("Check", "Please enter correct numbers.", this, MyMessageBoxStyles.Warning); }
             catch (NotImplementedException) { m.Display("Joke", "This is not a joke.", this, MyMessageBoxStyles.Error); }
