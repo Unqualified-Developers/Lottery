@@ -7,7 +7,7 @@ namespace Lottery
 {
     internal class Storage
     {
-        public static void Save(string min, string max, string ignore, string quantity, bool checkbox, int fontSize)
+        public static void Save(string min, string max, string ignore, string quantity, string split, bool checkbox, int fontSize)
         {
             Dictionary<string, string> data = new Dictionary<string, string>
             {
@@ -15,6 +15,7 @@ namespace Lottery
                 { "max", max },
                 { "ignore", ignore },
                 { "quantity", quantity },
+                { "split", split },
                 { "no duplication", checkbox.ToString() },
                 { "mymessagebox fontsize", fontSize.ToString() }
             };
@@ -34,7 +35,7 @@ namespace Lottery
             }
         }
 
-        public static (string, string, string, string, bool) Load()
+        public static (string, string, string, string, string, bool) Load()
         {
             try
             {
@@ -58,9 +59,10 @@ namespace Lottery
                 data.ContainsKey("max") ? data["max"] : string.Empty,
                 data.ContainsKey("ignore") ? data["ignore"] : string.Empty,
                 data.ContainsKey("quantity") ? data["quantity"] : string.Empty,
+                data.ContainsKey("split") ? data["split"] : string.Empty,
                 data.ContainsKey("no duplication") && bool.TryParse(data["no duplication"], out bool isChecked) && isChecked);
             }
-            catch (Exception) { return (string.Empty, string.Empty, string.Empty, string.Empty, false); }
+            catch (Exception) { return (string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, false); }
         }
     }
 }
