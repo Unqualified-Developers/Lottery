@@ -76,18 +76,18 @@ namespace Lottery
         }
 
         /// <summary>
-        /// Generates a random <see cref="BigInteger"/> value within the specified range, excluding the numbers in the given HashSet.
+        /// Generates a random <see cref="BigInteger"/> value within the specified range, excluding the numbers in the given HashSet and Intervals.
         /// </summary>
         /// <remarks>
-        /// This method generates a random <see cref="BigInteger"/> value within the range specified by min and max, while ensuring that the generated number is not present in the provided HashSet. <br/>
-        /// If a suitable number cannot be found within 1, 000, 000 iterations, a <see cref="NotImplementedException"/> is thrown.
+        /// This method generates a random <see cref="BigInteger"/> value within the range specified by min and max, while ensuring that the generated number is not present in the provided HashSet and Intervals. <br/>
+        /// If a suitable number cannot be found within 1, 000, 000 iterations, a <see cref="CannotGenerateException"/> is thrown.
         /// </remarks>
         /// <param name="min">The minimum value of the range.</param>
         /// <param name="max">The maximum value of the range.</param>
         /// <param name="iset">The HashSet containing the numbers to be excluded.</param>
         /// <param name="ilist">The list containing the intervals to be excluded.</param>
         /// <param name="r">The RandomNumberGenerator object used for generating random numbers.</param>
-        /// <returns>A random <see cref="BigInteger"/> value within the specified range, excluding the numbers in the HashSet.</returns>
+        /// <returns>A random <see cref="BigInteger"/> value within the specified range, excluding the numbers in the HashSet and Intervals.</returns>
         /// <exception cref="CannotGenerateException">Thrown when the maximum number of iterations is reached without finding a suitable number.</exception>
         private BigInteger Generate(BigInteger min, BigInteger max, HashSet<BigInteger> iset, List<Interval> ilist, RandomNumberGenerator r)
         {
